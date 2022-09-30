@@ -11,14 +11,14 @@ CREATE TABLE operations (
     deleted_at TIMESTAMP,
     id_user TINYINT,
     id_category TINYINT,
-    FOREIGN KEY (id_user) REFERENCES users(id)
+    FOREIGN KEY (id_user) REFERENCES users(id),
     FOREIGN KEY (id_category) REFERENCES catogories(id)
 );
 
-CREATE TABLE category (
+CREATE TABLE categories (
     id TINYINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(200) NOT NULL
-)
+);
 
 CREATE TABLE users (
     id TINYINT AUTO_INCREMENT PRIMARY KEY,
@@ -26,5 +26,5 @@ CREATE TABLE users (
     lastname VARCHAR(150) NOT NULL,
     email VARCHAR(200) NOT NULL,
     password VARCHAR(200) NOT NULL,
-    url_img VARCHAR(200) NOT NULL,
-)
+    url_img VARCHAR(200) NOT NULL
+);
