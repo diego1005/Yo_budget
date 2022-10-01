@@ -24,6 +24,7 @@ const incomesController = {
     //CREATE
     add: (req, res) => {
         Operation.create({
+            //create register on db
             concept: req.body.concept,
             amount: parseFloat(req.body.amount),
             operation_date: req.body.operation_date,
@@ -45,9 +46,34 @@ const incomesController = {
     },
     //UPDATE
     edit: (req, res) => {
-        Operation.update({
-
-        })
+        Operation.update(
+            {
+                //register data to update
+                concept: req.body.concept,
+                amount: parseFloat(req.body.amount),
+                operation_date: req.body.operation_date,
+                operation_type: req.body.operation_type,
+                id_category: parseInt(req.body.category)
+            },
+            {
+                //find that register to update
+                where: {
+                    id: req.params.id
+                }
+            }
+        )
+            .then(result => {
+                res.status(200).json({
+                    result: result,
+                    status: "success"
+                })
+            })
+            .catch(err => {
+                res.status(500).json({
+                    error: err,
+                    status: "denied"
+                })
+            })
     },
     //DELETE
     delete: (req, res) => {
