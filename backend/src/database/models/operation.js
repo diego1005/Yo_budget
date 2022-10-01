@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
         "Operation", //alias
         {  //table structure
             concept: DataTypes.STRING(200),
-            amount: DataTypes.DECIMAL(7, 2),
+            amount: DataTypes.DECIMAL(11, 2),
             operation_date: DataTypes.DATE("YYYY/MM/DD"),
             operation_type: DataTypes.STRING(10),
         },
