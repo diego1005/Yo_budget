@@ -6,8 +6,9 @@ const userController = require("../controller/userController");
 //Incomes Routes
 //Read
 router.get("/list", userController.list);
+router.post("/login", userController.login);
 //Create
-router.post("/add", userController.add);
+router.post("/signin", userController.signin);
 //Update
 router.put("/edit/:id", userController.edit);
 //Delete
