@@ -130,6 +130,10 @@ const userController = {
             })
         }
     },
+    //LOGOUT
+    logout: (req, res) => {
+        req.session.destroy()
+    },
     //READ
     list: (req, res) => {
         User.findAll()

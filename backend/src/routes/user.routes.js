@@ -6,6 +6,7 @@ const userController = require("../controller/userController");
 //Incomes Routes
 //Read
 router.get("/list", userController.list);
+router.get("/logout", userController.logout);
 router.post("/login", userController.login);
 //Create
 router.post("/signin", userController.signin);
