@@ -3,7 +3,7 @@ const { Operation } = require("../database/models");
 const Op = db.Sequelize.Op;
 
 
-const incomesController = {
+const operationController = {
     //READ
     list: (req, res) => {
         Operation.findAll()
@@ -97,4 +97,4 @@ const incomesController = {
     }
 }
 
-module.exports = incomesController;
+module.exports = operationController;
