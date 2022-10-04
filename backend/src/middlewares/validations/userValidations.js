@@ -21,8 +21,7 @@ const validates = {
             } else {
                 return true;
             }
-        }
-        ),
+        }),
         check("url_img").custom((el, { req }) => {
             const ext = [".jpg", ".png", "jpeg", ".webp"];
             const extFile = path.extname(req.file.originalname);
@@ -41,6 +40,18 @@ const validates = {
             const extFile = path.extname(req.file.originalname);
             return (ext.includes(extFile));
         }).withMessage('This field requires the following extensions .jpg, .png, .jpeg, .webp')
+    ],
+    validateEditUserPass: [
+        check("oldPassword").notEmpty().withMessage("This field is required"),
+        check("password").notEmpty().withMessage("This field is required"),
+        check("confirmPassword").notEmpty().withMessage("This field is required").bail().custom((
+            confirmPassword, { req }) => {
+            if (confirmPassword != req.body.password) {
+                throw new Error("Passwords doesn't match")
+            } else {
+                return true;
+            }
+        })
     ]
 }
 

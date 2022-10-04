@@ -86,7 +86,7 @@ const userController = {
                     //user existent
                     if (user != null) {
                         //delete file upload
-                        this.deleteImg(false, req.file.filename);
+                        userController.deleteImg(false, req.file.filename);
                         res.status(500).json({
                             msg: "Email already exists",
                             old: req.body,
@@ -113,7 +113,7 @@ const userController = {
                             })
                             .catch(err => {
                                 //delete file upload
-                                this.deleteImg(false, req.file.filename);
+                                userController.deleteImg(false, req.file.filename);
                                 res.status(500).json({
                                     msg: "create user error",
                                     error: err,
@@ -124,7 +124,7 @@ const userController = {
                 })
                 .catch(err => {
                     //delete file upload
-                    this.deleteImg(false, req.file.filename);
+                    userController.deleteImg(false, req.file.filename);
                     res.status(500).json({
                         msg: "find user error",
                         error: err,
@@ -134,7 +134,7 @@ const userController = {
         } else {
             //validations with errors
             //delete file upload
-            this.deleteImg(false, req.file.filename);
+            userController.deleteImg(false, req.file.filename);
             res.status(500).json({
                 errors: errors.mapped(),
                 old: req.body,
@@ -165,65 +165,156 @@ const userController = {
     },
     //UPDATE
     editUserData: (req, res) => {
-        User.update(
-            {
-                //register data to update
-                name: req.body.name,
-                lastname: req.body.lastname,
-                email: req.body.email,
-                password: req.body.password,
-            },
-            {
-                //find that register to update
-                where: {
-                    id: req.params.id
+        //form fields validations
+        const errors = validationResult(req);
+        //validations pass
+        if (errors.isEmpty()) {
+            User.update(
+                {
+                    //register data to update
+                    name: req.body.name,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    password: req.body.password,
+                },
+                {
+                    //find that register to update
+                    where: {
+                        id: req.params.id
+                    }
                 }
-            }
-        )
-            .then(result => {
-                res.status(200).json({
-                    result: result,
-                    status: "success"
+            )
+                .then(result => {
+                    res.status(200).json({
+                        result: result,
+                        status: "success"
+                    })
                 })
-            })
-            .catch(err => {
-                res.status(500).json({
-                    msg: "error updating user",
-                    error: err,
-                    status: "denied"
+                .catch(err => {
+                    res.status(500).json({
+                        msg: "error updating user",
+                        error: err,
+                        status: "denied"
+                    })
                 })
+        } else {
+            //validation with errors
+            res.status(500).json({
+                errors: errors.mapped(),
+                old: req.body,
+                status: "denied"
             })
+        }
     },
     editUserImg: (req, res) => {
-        User.update(
-            {
-                //user img update
-                url_img: req.file.filename
-            },
-            {
-                //find that user to update
+        //form fields validations
+        const errors = validationResult(req);
+        //validations pass
+        if (errors.isEmpty()) {
+            User.update(
+                {
+                    //user img update
+                    url_img: req.file.filename
+                },
+                {
+                    //find that user to update
+                    where: {
+                        id: req.params.id
+                    }
+                }
+            )
+                .then(result => {
+                    //delete old img user
+                    userController.deleteImg(false, req.body.old_url_img);
+                    res.status(200).json({
+                        result: result,
+                        status: "success"
+                    })
+                })
+                .catch(err => {
+                    //delete img user
+                    userController.deleteImg(false, req.file.filename);
+                    res.status(500).json({
+                        msg: "error updating img user",
+                        error: err,
+                        status: "denied"
+                    })
+                })
+        } else {
+            //validation with errors
+            res.status(500).json({
+                errors: errors.mapped(),
+                old: req.body,
+                status: "denied"
+            })
+        }
+    },
+    editUserPassword: (req, res) => {
+        //form fields validations
+        const errors = validationResult(req);
+        //validations pass
+        if (errors.isEmpty()) {
+            //find old password
+            User.findOne({
+                attributes: ["password"],
                 where: {
                     id: req.params.id
                 }
-            }
-        )
-            .then(result => {
-                //delete old img user
-                this.deleteImg(false, req.body.old_url_img);
-                res.status(200).json({
-                    result: result,
-                    status: "success"
-                })
             })
-            .catch(err => {
-                //delete img user
-                this.deleteImg(false, req.file.filename);
-                res.status(500).json({
-                    msg: "error updating img user",
-                    error: err,
-                    status: "denied"
+                .then(user => {
+                    //user exists
+                    if (user != null) {
+                        //compare old password
+                        const authPass = bcrypt.compareSync(req.body.oldPassword, user.password);
+                        if (authPass) {
+                            User.update(
+                                {
+                                    //user img update
+                                    password: bcrypt.hashSync(req.body.password, 10)
+                                },
+                                {
+                                    //find that user to update
+                                    where: {
+                                        id: req.params.id
+                                    }
+                                }
+                            )
+                                .then(result => {
+                                    res.status(200).json({
+                                        msg: "password changed successfully",
+                                        result: result,
+                                        status: "success"
+                                    })
+                                })
+                                .catch(err => {
+                                    res.status(500).json({
+                                        msg: "error changing password",
+                                        error: err,
+                                        status: "denied"
+                                    })
+                                })
+                        } else {
+                            res.status(500).json({
+                                msg: "old password is wrong",
+                                status: "denied"
+                            })
+                        }
+                    }
                 })
+                .catch(err => {
+                    res.status(500).json({
+                        msg: "error updating password user",
+                        error: err,
+                        status: "denied"
+                    })
+                })
+        } else {
+            //validation with errors
+            res.status(500).json({
+                errors: errors.mapped(),
+                status: "denied"
             })
+        }
     },
     //DELETE
     delete: (req, res) => {
@@ -234,7 +325,7 @@ const userController = {
             }
         })
             .then(result => {
-                this.deleteImg(req.params.id);
+                userController.deleteImg(req.params.id);
                 res.status(200).json({
                     data: result,
                     status: "success"
