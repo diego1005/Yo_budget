@@ -4,6 +4,7 @@ const session = require("express-session");
 const cookies = require("cookie-parser");
 
 const indexRouter = require("./src/routes/index.routes");
+const userRouter = require("./src/routes/user.routes");
 const operationRouter = require("./src/routes/operation.routes");
 
 //Settings
@@ -21,6 +22,7 @@ app.use(cookies());
 
 //Routes
 app.use("/", indexRouter);
+app.use("/user", userRouter);
 app.use("/operation", operationRouter);
 
 //Server

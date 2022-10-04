@@ -96,19 +96,20 @@ const userController = {
                             lastname: req.body.lastname,
                             email: req.body.email,
                             password: bcrypt.hashSync(req.body.password, 10),
-                            // url_img: req.file.filename
+                            url_img: req.file.filename
                         })
-                            .then(result => {
-                                delete user.password;
+                            .then(newUser => {
+                                delete newUser.password;
                                 //user in session
-                                req.session.userLogged = user.email;
+                                req.session.userLogged = newUser.email;
                                 res.status(200).json({
-                                    data: result,
+                                    data: newUser,
                                     status: "success"
                                 })
                             })
                             .catch(err => {
                                 res.status(500).json({
+                                    msg: "create user error",
                                     error: err,
                                     status: "denied"
                                 })
@@ -117,6 +118,7 @@ const userController = {
                 })
                 .catch(err => {
                     res.status(500).json({
+                        msg: "find user error",
                         error: err,
                         status: "denied"
                     })
@@ -160,7 +162,7 @@ const userController = {
                 lastname: req.body.lastname,
                 email: req.body.email,
                 password: req.body.password,
-                // url_img: req.file.filename
+                url_img: req.file.filename
             },
             {
                 //find that register to update
