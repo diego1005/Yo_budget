@@ -3,7 +3,8 @@ const { User } = require("../database/models");
 const Op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-
+const fs = require("fs");
+const path = require("path");
 
 const userController = {
     //LOGIN
@@ -83,6 +84,8 @@ const userController = {
                 .then(user => {
                     //user existent
                     if (user != null) {
+                        //delete file upload
+                        fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${req.file.filename}`));
                         res.status(500).json({
                             msg: "Email already exists",
                             old: req.body,
@@ -108,6 +111,8 @@ const userController = {
                                 })
                             })
                             .catch(err => {
+                                //delete file upload
+                                fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${req.file.filename}`));
                                 res.status(500).json({
                                     msg: "create user error",
                                     error: err,
@@ -117,6 +122,8 @@ const userController = {
                     }
                 })
                 .catch(err => {
+                    //delete file upload
+                    fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${req.file.filename}`));
                     res.status(500).json({
                         msg: "find user error",
                         error: err,
@@ -125,6 +132,8 @@ const userController = {
                 })
         } else {
             //validations with errors
+            //delete file upload
+            fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${req.file.filename}`));
             res.status(500).json({
                 errors: errors.mapped(),
                 old: req.body,
@@ -186,19 +195,51 @@ const userController = {
     },
     //DELETE
     delete: (req, res) => {
-        User.destroy({
+        //find user img filename to delete
+        User.findOne({
+            attributes: ["url_img"],
             where: {
                 id: req.params.id
             }
         })
-            .then(result => {
-                res.status(200).json({
-                    data: result,
-                    status: "success"
-                })
+            .then(user => {
+                //check if user exists
+                if (user != null) {
+                    //delete file upload
+                    fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${user.url_img}`));
+                    //delete user
+                    User.destroy({
+                        where: {
+                            id: req.params.id
+                        }
+                    })
+                        .then(result => {
+                            res.status(200).json({
+                                data: result,
+                                status: "success"
+                            })
+                        })
+                        .catch(err => {
+                            res.status(500).json({
+                                msg: "error deleting user",
+                                error: err,
+                                status: "denied"
+                            })
+                        })
+
+                } else {
+                    //user doesn't exists
+                    res.status(500).json({
+                        msg: "user doesn't exist",
+                        error: err,
+                        status: "denied"
+                    })
+                }
             })
             .catch(err => {
+                //error find user
                 res.status(500).json({
+                    msg: "error find user",
                     error: err,
                     status: "denied"
                 })
