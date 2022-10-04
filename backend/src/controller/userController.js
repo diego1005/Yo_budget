@@ -55,6 +55,7 @@ const userController = {
                 })
                 .catch(err => {
                     res.status(500).json({
+                        msg: "error user search",
                         error: err,
                         old: req.body,
                         status: "denied"
@@ -85,7 +86,7 @@ const userController = {
                     //user existent
                     if (user != null) {
                         //delete file upload
-                        fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${req.file.filename}`));
+                        this.deleteImg(false, req.file.filename);
                         res.status(500).json({
                             msg: "Email already exists",
                             old: req.body,
@@ -112,7 +113,7 @@ const userController = {
                             })
                             .catch(err => {
                                 //delete file upload
-                                fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${req.file.filename}`));
+                                this.deleteImg(false, req.file.filename);
                                 res.status(500).json({
                                     msg: "create user error",
                                     error: err,
@@ -123,7 +124,7 @@ const userController = {
                 })
                 .catch(err => {
                     //delete file upload
-                    fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${req.file.filename}`));
+                    this.deleteImg(false, req.file.filename);
                     res.status(500).json({
                         msg: "find user error",
                         error: err,
@@ -133,7 +134,7 @@ const userController = {
         } else {
             //validations with errors
             //delete file upload
-            fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${req.file.filename}`));
+            this.deleteImg(false, req.file.filename);
             res.status(500).json({
                 errors: errors.mapped(),
                 old: req.body,
@@ -163,7 +164,7 @@ const userController = {
             })
     },
     //UPDATE
-    edit: (req, res) => {
+    editUserData: (req, res) => {
         User.update(
             {
                 //register data to update
@@ -171,7 +172,6 @@ const userController = {
                 lastname: req.body.lastname,
                 email: req.body.email,
                 password: req.body.password,
-                url_img: req.file.filename
             },
             {
                 //find that register to update
@@ -188,6 +188,38 @@ const userController = {
             })
             .catch(err => {
                 res.status(500).json({
+                    msg: "error updating user",
+                    error: err,
+                    status: "denied"
+                })
+            })
+    },
+    editUserImg: (req, res) => {
+        User.update(
+            {
+                //user img update
+                url_img: req.file.filename
+            },
+            {
+                //find that user to update
+                where: {
+                    id: req.params.id
+                }
+            }
+        )
+            .then(result => {
+                //delete old img user
+                this.deleteImg(false, req.body.old_url_img);
+                res.status(200).json({
+                    result: result,
+                    status: "success"
+                })
+            })
+            .catch(err => {
+                //delete img user
+                this.deleteImg(false, req.file.filename);
+                res.status(500).json({
+                    msg: "error updating img user",
                     error: err,
                     status: "denied"
                 })
@@ -195,55 +227,60 @@ const userController = {
     },
     //DELETE
     delete: (req, res) => {
-        //find user img filename to delete
-        User.findOne({
-            attributes: ["url_img"],
+        //delete user
+        User.destroy({
             where: {
                 id: req.params.id
             }
         })
-            .then(user => {
-                //check if user exists
-                if (user != null) {
-                    //delete file upload
-                    fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${user.url_img}`));
-                    //delete user
-                    User.destroy({
-                        where: {
-                            id: req.params.id
-                        }
-                    })
-                        .then(result => {
-                            res.status(200).json({
-                                data: result,
-                                status: "success"
-                            })
-                        })
-                        .catch(err => {
-                            res.status(500).json({
-                                msg: "error deleting user",
-                                error: err,
-                                status: "denied"
-                            })
-                        })
-
-                } else {
-                    //user doesn't exists
-                    res.status(500).json({
-                        msg: "user doesn't exist",
-                        error: err,
-                        status: "denied"
-                    })
-                }
+            .then(result => {
+                this.deleteImg(req.params.id);
+                res.status(200).json({
+                    data: result,
+                    status: "success"
+                })
             })
             .catch(err => {
-                //error find user
                 res.status(500).json({
-                    msg: "error find user",
+                    msg: "error deleting user",
                     error: err,
                     status: "denied"
                 })
             })
+    },
+    deleteImg: (userId, imgUrl) => {
+        if (userId != false) {
+            //find user img filename to delete
+            User.findOne({
+                attributes: ["url_img"],
+                where: {
+                    id: userId
+                }
+            })
+                .then(user => {
+                    //check if user exists
+                    if (user != null) {
+                        //delete file upload
+                        fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${user.url_img}`));
+                    } else {
+                        res.status(500).json({
+                            msg: "no user to delete img",
+                            status: "denied"
+                        })
+                    }
+                })
+                .catch(err => {
+                    //error find user
+                    res.status(500).json({
+                        msg: "error find user to delete img",
+                        error: err,
+                        status: "denied"
+                    })
+                })
+        } else {
+            //delete file upload
+            fs.unlinkSync(path.join(__dirname, `../../public/img/user_img/${imgUrl}`));
+        }
     }
 }
 

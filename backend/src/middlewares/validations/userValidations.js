@@ -33,7 +33,9 @@ const validates = {
     validateEditUser: [
         check("name").notEmpty().withMessage("This field is required"),
         check("lastname").notEmpty().withMessage("This field is required"),
-        check("email").notEmpty().withMessage("This field is required").bail().isEmail().withMessage("email invalid"),
+        check("email").notEmpty().withMessage("This field is required").bail().isEmail().withMessage("email invalid")
+    ],
+    validateEditUserImg: [
         check("url_img").custom((el, { req }) => {
             const ext = [".jpg", ".png", "jpeg", ".webp"];
             const extFile = path.extname(req.file.originalname);

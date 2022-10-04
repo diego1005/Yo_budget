@@ -18,7 +18,8 @@ router.post("/login", validates.validateLogin, userController.login);
 //Create
 router.post("/signin", userUpload.single("url_img"), validates.validateSignin, userController.signin);
 //Update
-router.put("/edit/:id", validates.validateEditUser, userController.edit);
+router.put("/editData/:id", validates.validateEditUser, userController.editUserData);
+router.patch("/editImg/:id", userUpload.single("url_img"), validates.validateEditUserImg, userController.editUserImg);
 //Delete
 router.delete("/delete/:id", userController.delete);
 
