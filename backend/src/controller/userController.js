@@ -28,10 +28,10 @@ const userController = {
                         //password pass
                         if (authPass) {
                             //user in session
-                            req.session.userLogged = user.email;
+                            req.session.userLogged = user;
                             //remember me checkbox
                             if (req.body.remember != undefined) {
-                                res.cookie("remember", user.email, { maxAge: 1000 * 60 * 2 });
+                                res.cookie("remember", user, { maxAge: 1000 * 60 * 2 });
                             }
                             res.status(200).json({
                                 status: "success"

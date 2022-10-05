@@ -7,6 +7,8 @@ const indexRouter = require("./src/routes/index.routes");
 const userRouter = require("./src/routes/user.routes");
 const operationRouter = require("./src/routes/operation.routes");
 
+const rememberMid = require("./src/middlewares/session/rememberMid");
+
 //Settings
 const port = process.env.PORT || 3001;
 
@@ -19,6 +21,7 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(cookies());
+app.use(rememberMid);
 
 //Routes
 app.use("/", indexRouter);
