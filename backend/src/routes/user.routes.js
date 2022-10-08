@@ -9,10 +9,12 @@ const userController = require("../controller/userController");
 const { userUpload } = require("../middlewares/multer/multer");
 //Validations
 const validates = require("../middlewares/validations/userValidations");
+//Token
+const userToken = require("../middlewares/session/userToken");
 
 //Incomes Routes
 //Read
-router.get("/list", userController.list);
+router.get("/list", userToken, userController.list);
 router.get("/logout", userController.logout);
 router.post("/login", validates.validateLogin, userController.login);
 //Create

@@ -4,9 +4,8 @@ const path = require("path");
 const validates = {
     //Login validations
     validateLogin: [
-        check("name").notEmpty().withMessage("This field is required"),
-        check("lastname").notEmpty().withMessage("This field is required"),
-        check("email").notEmpty().withMessage("This field is required").bail().isEmail().withMessage("email invalid")
+        check("username").notEmpty().withMessage("This field is required").bail().isEmail().withMessage("email invalid"),
+        check("password").notEmpty().withMessage("This field is required")
     ],
     //Signin validations
     validateSignin: [

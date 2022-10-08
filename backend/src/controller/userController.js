@@ -3,6 +3,7 @@ const { User } = require("../database/models");
 const Op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const path = require("path");
 
@@ -27,13 +28,16 @@ const userController = {
                         delete user.password;
                         //password pass
                         if (authPass) {
-                            //user in session
-                            req.session.userLogged = user;
+                            let token = '';
                             //remember me checkbox
                             if (req.body.remember != undefined) {
-                                res.cookie("remember", user, { maxAge: 1000 * 60 * 2 });
+                                token = jwt.sign({ user }, "userToken", { expiresIn: 60 * 60 * 24 });
+                            } else {
+                                //generate user token
+                                token = jwt.sign({ user }, "userToken", { expiresIn: 60 * 5 });
                             }
                             res.status(200).json({
+                                token,
                                 status: "success"
                             })
                         } else {
@@ -72,6 +76,7 @@ const userController = {
     },
     //SIGNIN
     signin: (req, res) => {
+        console.log(req.file);
         //form fields validations
         const errors = validationResult(req);
         //validations pass
@@ -104,10 +109,11 @@ const userController = {
                         })
                             .then(newUser => {
                                 delete newUser.password;
-                                //user in session
-                                req.session.userLogged = newUser.email;
+                                //generate user token
+                                const token = jwt.sign({ newUser }, "userToken", { expiresIn: 60 * 5 });
                                 res.status(200).json({
                                     data: newUser,
+                                    token,
                                     status: "success"
                                 })
                             })
@@ -134,7 +140,7 @@ const userController = {
         } else {
             //validations with errors
             //delete file upload
-            userController.deleteImg(false, req.file.filename);
+            // userController.deleteImg(false, req.file.filename);
             res.status(500).json({
                 errors: errors.mapped(),
                 old: req.body,
@@ -144,10 +150,25 @@ const userController = {
     },
     //LOGOUT
     logout: (req, res) => {
-        req.session.destroy()
+        //Aca recibo el token y lo borro del cliente
     },
     //READ
     list: (req, res) => {
+        jwt.verify(req.token, "userToken", (err, data) => {
+            if (err) {
+                res.status(500).json({
+                    msg: "token missed or invalid",
+                    error: err,
+                    status: "denied"
+                })
+            } else {
+                res.status(200).json({
+                    data,
+                    status: "success"
+                })
+            }
+        });
+        /*
         User.findAll()
             .then(result => {
                 res.status(200).json({
@@ -162,6 +183,7 @@ const userController = {
                     status: "denied"
                 })
             })
+            */
     },
     //UPDATE
     editUserData: (req, res) => {
