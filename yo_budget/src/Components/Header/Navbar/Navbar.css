@@ -1,0 +1,21 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    text-align: center;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left {
+    justify-content: space-evenly;
+    width: 30%;
+}
+
+.nav-right {
+    justify-content: space-between;
+    width: 35%;
+}
