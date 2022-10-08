@@ -5,6 +5,8 @@ const indexRouter = require("./src/routes/index.routes");
 const userRouter = require("./src/routes/user.routes");
 const operationRouter = require("./src/routes/operation.routes");
 
+const userToken = require("./src/middlewares/session/userToken");
+
 //Settings
 const port = process.env.PORT || 3001;
 
@@ -14,8 +16,8 @@ app.use(express.json());
 
 //Routes
 app.use("/", indexRouter);
-app.use("/user", userRouter);
-app.use("/operation", operationRouter);
+app.use("/user", userToken, userRouter);
+app.use("/operation", userToken, operationRouter);
 
 //Server
 app.listen(port, () => {

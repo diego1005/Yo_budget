@@ -31,6 +31,7 @@ const userController = {
                             let token = '';
                             //remember me checkbox
                             if (req.body.remember != undefined) {
+                                //checks if token expired after close windows if does't especify an expiredIn property
                                 token = jwt.sign({ user }, "userToken", { expiresIn: 60 * 60 * 24 });
                             } else {
                                 //generate user token
@@ -151,6 +152,7 @@ const userController = {
     //LOGOUT
     logout: (req, res) => {
         //Aca recibo el token y lo borro del cliente
+        req.token.destroy();
     },
     //READ
     list: (req, res) => {

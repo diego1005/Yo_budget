@@ -9,21 +9,21 @@ const userController = require("../controller/userController");
 const { userUpload } = require("../middlewares/multer/multer");
 //Validations
 const validates = require("../middlewares/validations/userValidations");
-//Token
-const userToken = require("../middlewares/session/userToken");
+//Confirm Password
+const confirmPassword = require("../middlewares/validations/confirmPassword");
 
 //Incomes Routes
 //Read
-router.get("/list", userToken, userController.list);
+router.get("/list", userController.list);
 router.get("/logout", userController.logout);
 router.post("/login", validates.validateLogin, userController.login);
 //Create
 router.post("/signin", userUpload.single("url_img"), validates.validateSignin, userController.signin);
 //Update
-router.put("/edit/:id", validates.validateEditUser, userController.editUserData);
-router.patch("/editImg/:id", userUpload.single("url_img"), validates.validateEditUserImg, userController.editUserImg);
-router.patch("/editPass/:id", validates.validateEditUserPass, userController.editUserPassword);
+router.put("/edit/:id", confirmPassword, validates.validateEditUser, userController.editUserData);
+router.patch("/editImg/:id", confirmPassword, userUpload.single("url_img"), validates.validateEditUserImg, userController.editUserImg);
+router.patch("/editPass/:id", confirmPassword, validates.validateEditUserPass, userController.editUserPassword);
 //Delete
-router.delete("/delete/:id", userController.delete);
+router.delete("/delete/:id", confirmPassword, userController.delete);
 
 module.exports = router;

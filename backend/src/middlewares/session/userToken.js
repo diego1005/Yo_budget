@@ -1,5 +1,4 @@
-//This middleware checks that exists an user logged in, if so, return its data. Otherwise it'll notified.
-const jwt = require("jsonwebtoken");
+//This middleware checks the user logged in, if so, save its token. Otherwise it'll return a redirect action.
 
 const userToken = (req, res, next) => {
     const userToken = req.headers["authorization"];
@@ -7,7 +6,11 @@ const userToken = (req, res, next) => {
         req.token = userToken;
         next();
     } else {
-        res.sendStatus(403);
+        res.status(500).json({
+            msg: "missing token or invalid",
+            action: "redirect",
+            status: "denied"
+        });
     }
 }
 

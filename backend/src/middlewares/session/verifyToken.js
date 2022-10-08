@@ -1,10 +1,11 @@
-//This middleware checks token exists and match
+//This middleware checks token exists and match for continue
+const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
     jwt.verify(req.token, "userToken", (err, data) => {
         if (err) {
             res.status(500).json({
-                msg: "token missed or invalid",
+                msg: "missing token or invalid",
                 error: err,
                 status: "denied"
             })

@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
+//Controller
 const operationController = require("../controller/operationController");
+
+//Middlewares
+//Token
+const verifyToken = require("../middlewares/session/verifyToken");
 
 //Incomes Routes
 //Read
