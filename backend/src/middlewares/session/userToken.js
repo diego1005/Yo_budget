@@ -9,18 +9,6 @@ const userToken = (req, res, next) => {
     } else {
         res.sendStatus(403);
     }
-    /*
-    if (req.session.userLogged != undefined) {
-        res.status(200).json({
-            user: req.session.userLogged, //returns the user data to be used in the profile view
-            status: "user logged in"
-        })
-    } else {
-        res.status(200).json({
-            status: "no user logged in" //notifies that doesn't exist a user logged in
-        })
-    }
-    */
 }
 
 module.exports = userToken;

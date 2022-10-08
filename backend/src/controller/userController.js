@@ -154,21 +154,6 @@ const userController = {
     },
     //READ
     list: (req, res) => {
-        jwt.verify(req.token, "userToken", (err, data) => {
-            if (err) {
-                res.status(500).json({
-                    msg: "token missed or invalid",
-                    error: err,
-                    status: "denied"
-                })
-            } else {
-                res.status(200).json({
-                    data,
-                    status: "success"
-                })
-            }
-        });
-        /*
         User.findAll()
             .then(result => {
                 res.status(200).json({
@@ -183,7 +168,6 @@ const userController = {
                     status: "denied"
                 })
             })
-            */
     },
     //UPDATE
     editUserData: (req, res) => {
