@@ -32,10 +32,10 @@ const userController = {
                             //remember me checkbox
                             if (req.body.remember != undefined) {
                                 //checks if token expired after close windows if does't especify an expiredIn property
-                                token = jwt.sign({ user }, "userToken", { expiresIn: 60 * 60 * 24 });
+                                token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 60 * 60 * 24 });
                             } else {
                                 //generate user token
-                                token = jwt.sign({ user }, "userToken", { expiresIn: 60 * 5 });
+                                token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 60 * 5 });
                             }
                             res.status(200).json({
                                 token,
@@ -111,7 +111,7 @@ const userController = {
                             .then(newUser => {
                                 newUser.password = undefined;
                                 //generate user token
-                                const token = jwt.sign({ newUser }, "userToken", { expiresIn: 60 * 5 });
+                                const token = jwt.sign({ newUser }, process.env.SECRET_KEY, { expiresIn: 60 * 5 });
                                 res.status(200).json({
                                     data: newUser,
                                     token,

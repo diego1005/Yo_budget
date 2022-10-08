@@ -2,7 +2,7 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-    jwt.verify(req.token, "userToken", (err, data) => {
+    jwt.verify(req.token, process.env.SECRET_KEY, (err, data) => {
         if (err) {
             res.status(500).json({
                 msg: "missing token or invalid",
