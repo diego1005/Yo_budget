@@ -25,7 +25,7 @@ const userController = {
                     if (user != null) {
                         //compare password
                         let authPass = bcrypt.compareSync(req.body.password, user.password);
-                        delete user.password;
+                        user.password = undefined;
                         //password pass
                         if (authPass) {
                             let token = '';
@@ -108,7 +108,7 @@ const userController = {
                             url_img: req.file.filename
                         })
                             .then(newUser => {
-                                delete newUser.password;
+                                newUser.password = undefined;
                                 //generate user token
                                 const token = jwt.sign({ newUser }, "userToken", { expiresIn: 60 * 5 });
                                 res.status(200).json({
