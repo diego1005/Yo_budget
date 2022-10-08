@@ -2,7 +2,7 @@
 const User = require("../../database/models");
 
 
-const confirmPassword = (req, res, next) => {
+const verifyPassword = (req, res, next) => {
     User.findOne({
         attributes: ["password"],
         where: {
@@ -34,4 +34,4 @@ const confirmPassword = (req, res, next) => {
         })
 }
 
-module.exports = confirmPassword;
+module.exports = verifyPassword;
