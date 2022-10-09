@@ -15,6 +15,12 @@
     width: 30%;
 }
 
+.fa-house {
+    font-size: 1.2rem;
+    color: black;
+    opacity: 0.5;
+}
+
 .nav-right {
     justify-content: space-between;
     width: 35%;
