@@ -7,7 +7,7 @@ function InfoCard(props) {
     <div className='info-card'>
       <div className="top-card">
         <div className="icon-card">
-          <i class="fa-solid fa-book icon-img"></i>
+          {props.icon}
         </div>
         <div className="data-card">
           <p className='data-title'>Titulo</p>
