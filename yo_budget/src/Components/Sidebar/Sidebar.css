@@ -10,29 +10,36 @@
 }
 
 .sidebar-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 20%;
     color: white;
 }
 
 .sidebar-title hr {
     width: 80%;
-    margin: 0 auto 3rem;
+    margin: 0 auto;
 }
 
 .title-box {
     display: flex;
-    padding: 3rem 2rem 3rem;
 }
 
 /* .title-icon {
     width: 5rem;
 } */
 
-.sidebar-list {
-    list-style: none;
-    text-align: start;
-    font-size: 1.5rem;
+.sidebar-list-container {
+    height: 80%;
 }
 
-.sidebar-list li {
-    margin-bottom: 1rem;
+.sidebar-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    height: 100%;
+    list-style: none;
+    font-size: 1.5rem;
 }

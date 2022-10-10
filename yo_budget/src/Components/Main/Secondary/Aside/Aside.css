@@ -1,0 +1,9 @@
+.aside {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 88%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 3px 5px 5px 0px rgba(100, 100, 100, 0.5);
+}

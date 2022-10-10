@@ -12,12 +12,15 @@ function Sidebar() {
         </div>
         <hr />
       </div>
-      <ul className='sidebar-list'>
-        <SidebarOpt sidebarTo="/operations" sidebarOpt="OPERATIONS" />
-        <SidebarOpt sidebarTo="/users" sidebarOpt="USERS" />
-        <SidebarOpt sidebarTo="/login" sidebarOpt="LOG IN" />
-        <SidebarOpt sidebarTo="/signin" sidebarOpt="SIGN IN" />
-      </ul>
+      <div className="sidebar-list-container">
+        <ul className='sidebar-list'>
+          <SidebarOpt sidebarTo="/operations" sidebarOpt="DASHBOARD" />
+          <SidebarOpt sidebarTo="/users" sidebarOpt="OPERATIONS" />
+          <SidebarOpt sidebarTo="/users" sidebarOpt="PROFILE" />
+          <SidebarOpt sidebarTo="/login" sidebarOpt="LOG IN" />
+          <SidebarOpt sidebarTo="/signin" sidebarOpt="SIGN IN" />
+        </ul>
+      </div>
     </div>
   )
 }

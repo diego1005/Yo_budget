@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import "./Aside.css";
 
 function Aside() {
   return (
-    <div>Aside</div>
+    <div className='aside'></div>
   )
 }
 
