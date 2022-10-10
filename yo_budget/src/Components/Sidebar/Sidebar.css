@@ -1,0 +1,48 @@
+.sidebar {
+    position: fixed;
+    width: 20%;
+    height: 92%;
+    margin: 2rem 1rem;
+    text-align: center;
+    background-color: rgb(50, 50, 50);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.8) inset;
+    border-radius: 20px;
+}
+
+.sidebar-title {
+    color: white;
+}
+
+.sidebar-title hr {
+    width: 80%;
+    margin: 0 auto 3rem;
+}
+
+.title-box {
+    display: flex;
+    padding: 3rem 2rem 3rem;
+}
+
+/* .title-icon {
+    width: 5rem;
+} */
+
+.sidebar-list {
+    list-style: none;
+    text-align: start;
+    font-size: 1.5rem;
+}
+
+.sidebar-list li {
+    margin-bottom: 1rem;
+}
+
+.sidebar-link {
+    text-decoration: none;
+}
+
+.sidebar-opt {
+    font-family: 'Stick No Bills', sans-serif;
+    margin-left: 1rem;
+    color: white;
+}
