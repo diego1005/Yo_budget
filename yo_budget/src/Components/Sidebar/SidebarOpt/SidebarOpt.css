@@ -5,4 +5,9 @@
 .sidebar-opt {
     font-family: 'Stick No Bills', sans-serif;
     color: white;
+    margin-left: 1rem;
+}
+
+.sidebar-icon {
+    color: white;
 }

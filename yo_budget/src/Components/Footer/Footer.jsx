@@ -13,22 +13,22 @@ function Footer() {
           {/* create a footicon element */}
           <li>
             <Link to="#" className='foot-link'>
-              In icon
+              <img className='icon' src="img/linkedin.png" alt="in" />
             </Link>
           </li>
           <li>
             <Link to="#" className='foot-link'>
-              Fb icon
+              <img className='icon' src="img/facebook.png" alt="fb" />
             </Link>
           </li>
           <li>
             <Link to="#" className='foot-link'>
-              Contact icon
+              <img className='icon' src="img/charla.png" alt="contact" />
             </Link>
           </li>
           <li>
             <Link to="#" className='foot-link'>
-              Wtp icon
+              <img className='icon' src="img/whatsapp.png" alt="wtp" />
             </Link>
           </li>
         </ul>
