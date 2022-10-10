@@ -1,0 +1,38 @@
+.table-container {
+    width: 70%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.table-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.fa-check {
+    font-size: 1.5rem;
+    color: green;
+}
+
+.movements {
+    font-size: 1.3rem;
+    color: blue;
+    font-weight: bold;
+}
+
+.table-top-right {
+    width: 10%;
+    font-size: 1.3rem;
+}
+
+.table {
+    width: 100%;
+    border-spacing: 0 0.5rem;
+}
+
+.table-content {
+    height: 16.5rem;
+    overflow: auto;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import "./Sidebar.css"
+import SidebarOpt from './SidebarOpt/SidebarOpt';
 
 function Sidebar() {
   return (
@@ -13,19 +13,10 @@ function Sidebar() {
         <hr />
       </div>
       <ul className='sidebar-list'>
-        {/* Create component sidebar options */}
-        <li>
-          <Link to="/operations" className='sidebar-link'>
-            {/* icon */}
-            <span className='sidebar-opt'> OPERATIONS</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/users" className='sidebar-link'>
-            {/* icon */}
-            <span className='sidebar-opt'> USERS</span>
-          </Link>
-        </li>
+        <SidebarOpt sidebarTo="/operations" sidebarOpt="OPERATIONS" />
+        <SidebarOpt sidebarTo="/users" sidebarOpt="USERS" />
+        <SidebarOpt sidebarTo="/login" sidebarOpt="LOG IN" />
+        <SidebarOpt sidebarTo="/signin" sidebarOpt="SIGN IN" />
       </ul>
     </div>
   )
