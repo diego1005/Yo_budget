@@ -1,0 +1,73 @@
+.userinn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+}
+
+.userinn-icon {
+    font-size: 2.5rem;
+    border-radius: 50%;
+    padding: 1rem;
+}
+
+.register {
+    color: green;
+    border: 1px solid green;
+}
+
+.login {
+    color: blue;
+    border: 1px solid blue;
+}
+
+.userinn-title-box {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90%;
+}
+
+.userinn-title-box hr {
+    width: 30%;
+}
+
+.user-signin,
+.user-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 45%;
+    height: 80%;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 3px 5px 5px 0px rgba(100, 100, 100, 0.5);
+}
+
+.signin-form,
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 70%;
+}
+
+.btn-register {
+    color: white;
+    background-color: green;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-login {
+    color: white;
+    background-color: blue;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+}

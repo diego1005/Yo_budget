@@ -4,19 +4,22 @@ import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Main from "../../Components/Main/Main";
 import Footer from "../../Components/Footer/Footer";
-import Table from "../../Components/Main/Secondary/Table/Table"
+import Table from "../../Components/Main/Secondary/Table/Table";
+import UserInn from "../UserInn/UserInn";
 
 function Home(props) {
     return (
-        <div className={props.content === undefined ? "home" : "home home-table"}>
+        <div className={props.userLogged !== undefined ? "home" : "home home-vh"}>
             <Sidebar />
             <div className="container">
                 <Header />
                 {
-                    props.content !== undefined &&
+                    props.userLogged !== undefined
+                    ? props.content !== undefined &&
                         props.content === "table"
                         ? <Table />
                         : <Main />
+                    : <UserInn />
                 }
                 <Footer />
             </div>
