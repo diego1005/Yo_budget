@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar/SearchBar";
 import Navicon from "./Navicon/Navicon";
 
-
 function Navbar() {
     return (
         <div className='navbar'>
