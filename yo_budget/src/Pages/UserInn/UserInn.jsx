@@ -46,27 +46,27 @@ function UserInn() {
           <form className='signin-form'>
             <div className="form-ctr">
               <i className="fa-solid fa-user"></i>
-              <input type="text" placeholder='Name' />
+              <input type="text" name='name' placeholder='Name' />
             </div>
             <div className="form-ctr">
               <i className="fa-solid fa-user"></i>
-              <input type="text" placeholder='Lastname' />
+              <input type="text" name='lastname' placeholder='Lastname' />
             </div>
             <div className="form-ctr">
               <i className="fa-solid fa-envelope"></i>
-              <input type="email" placeholder='Email' />
+              <input type="email" name='email' placeholder='Email' />
             </div>
             <div className="form-ctr">
               <i className="fa-solid fa-lock"></i>
-              <input type="password" placeholder='Password' />
+              <input type="password" name='password' placeholder='Password' />
             </div>
             <div className="form-ctr">
               <i className="fa-solid fa-lock"></i>
-              <input type="password" placeholder='Confirm Password' />
+              <input type="password" name='confirmPassword' placeholder='Confirm Password' />
             </div>
             <div className="form-ctr">
               <i className="fa-solid fa-image"></i>
-              <input type="text" placeholder='image' />
+              <input type="text" name='file' placeholder='image' />
             </div>
             <div className="form-ctr">
               <input className='btn-register' type="submit" value="Register" />
@@ -92,11 +92,11 @@ function UserInn() {
           <form className='login-form'>
             <div className="form-ctr">
               <i className="fa-solid fa-envelope"></i>
-              <input type="email" placeholder='Email' />
+              <input type="email" name='email' placeholder='Email' />
             </div>
             <div className="form-ctr">
               <i className="fa-solid fa-lock"></i>
-              <input type="password" placeholder='Password' />
+              <input type="password" name='password' placeholder='Password' />
             </div>
             <div className="form-ctr">
               <input className='btn-login' type="submit" value="Login" />
