@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import './App.css';
 import Home from "./Pages/Home/Home";
 
@@ -22,7 +22,8 @@ function App() {
   return (
     <div >
       <Routes>
-        <Route path="/" exact={true} element={<Home userLogged={userLogged}/>} />
+        <Route path="/" exact element={userLogged ? <Home /> : <Navigate replace to="/userinn" />} />
+        <Route path="/userinn" exact element={<Home content="userinn" />} />
       </Routes>
     </div>
   );

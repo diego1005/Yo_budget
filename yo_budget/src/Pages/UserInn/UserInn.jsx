@@ -1,8 +1,9 @@
 import React from 'react';
-import "./UserInn.css"
+import "./UserInn.css";
 
 function UserInn() {
 
+  /*
   const showBox = (el) => {
     let registerIcon = document.querySelector(".user-signin");
     let register = document.querySelector("#register");
@@ -24,11 +25,15 @@ function UserInn() {
       loginIcon.style.display = "flex";
     }
   }
+  */
 
   return (
     <div className='userinn'>
       <div id='register'>
-        <i className="fa-solid fa-user-plus userinn-icon register" onClick={() => showBox("r")}></i>
+        <i className="fa-solid fa-user-plus userinn-icon register"></i>
+      </div>
+      <div id='login'>
+        <i className="fa-solid fa-user-check userinn-icon login"></i>
       </div>
       <div className="user-signin">
         <i className="fa-solid fa-user-plus userinn-icon register"></i>
@@ -66,9 +71,6 @@ function UserInn() {
             <input className='btn-register' type="submit" value="Register" />
           </div>
         </form>
-      </div>
-      <div id='login'>
-        <i className="fa-solid fa-user-check userinn-icon login" onClick={showBox}></i>
       </div>
       <div className="user-login">
         <i className="fa-solid fa-user-check userinn-icon login"></i>
