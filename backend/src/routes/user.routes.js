@@ -12,7 +12,10 @@ const validates = require("../middlewares/validations/userValidations");
 //Verify Password
 const verifyPassword = require("../middlewares/validations/verifyPassword");
 
-//Incomes Routes
+
+//User Routes
+//checkToken
+router.get("/checkToken", userController.checkToken);
 //Read
 router.get("/list", userController.list);
 router.get("/logout", userController.logout);

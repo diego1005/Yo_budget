@@ -14,12 +14,12 @@ function Home(props) {
             <div className="container">
                 <Header />
                 {
-                    props.content !== undefined &&
-                        props.content === "table"
-                        ? <Table />
-                        : props.content === "userinn"
-                            ? <UserInn />
-                            : <Main />
+                    props.content === undefined
+                        ? <Main />
+                        : props.content === "table"
+                            ? <Table />
+                            : props.content === "userinn" &&
+                            <UserInn />
                 }
                 <Footer />
             </div>

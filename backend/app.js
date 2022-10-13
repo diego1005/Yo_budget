@@ -18,7 +18,7 @@ app.use(cors());
 
 //Routes
 app.use("/", indexRouter);
-app.use("/user", userToken, userRouter);
+app.use("/user", userRouter);
 app.use("/operation", userToken, operationRouter);
 
 //Server

@@ -32,7 +32,7 @@ const userController = {
                             //remember me checkbox
                             if (req.body.remember != undefined) {
                                 //checks if token expired after close windows if does't especify an expiredIn property
-                                token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 60 * 60 * 24 });
+                                token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 60 * 5 });
                             } else {
                                 //generate user token
                                 token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 60 * 5 });
@@ -77,7 +77,6 @@ const userController = {
     },
     //SIGNIN
     signin: (req, res) => {
-        console.log(req.file);
         //form fields validations
         const errors = validationResult(req);
         //validations pass
@@ -147,6 +146,20 @@ const userController = {
                 old: req.body,
                 status: "denied"
             })
+        }
+    },
+    //CHECK TOKEN
+    checkToken: (req, res) => {
+        const userToken = req.headers["authorization"];
+        if (userToken != undefined) {
+            req.token = userToken;
+            next();
+        } else {
+            res.status(200).json({
+                msg: "missing token or invalid",
+                action: "redirect",
+                status: "denied"
+            });
         }
     },
     //LOGOUT

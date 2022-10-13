@@ -6,7 +6,7 @@ const userToken = (req, res, next) => {
         req.token = userToken;
         next();
     } else {
-        res.status(500).json({
+        res.status(200).json({
             msg: "missing token or invalid",
             action: "redirect",
             status: "denied"
