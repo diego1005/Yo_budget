@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 // import { Route, Routes, Navigate } from "react-router-dom";
 import './App.css';
 import Home from "./Pages/Home/Home";
@@ -14,6 +15,8 @@ function App() {
       .then(data => {
         if (data.action !== "redirect") {
           setUserLogged(data.token)
+        } else {
+          window.localStorage.clear();
         }
       })
       .catch(err => console.error(err))
@@ -28,6 +31,10 @@ function App() {
           ? (<Home content="userinn" />)
           : (<Home />)
       }
+
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+      </Routes>
 
       {/*       
       <Routes>

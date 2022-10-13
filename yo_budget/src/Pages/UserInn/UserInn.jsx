@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import "./UserInn.css";
-import Home from "../Home/Home";
 
 function UserInn() {
 
@@ -58,8 +57,8 @@ function UserInn() {
     })
       .then(response => response.json())
       .then(data => {
-        window.localStorage.setItem("token", data.token)
-        return <Route path='/' element={<Home />}/>
+        window.localStorage.setItem("token", data.token);
+        <Navigate to={"/"} />
       })
       .catch(err => console.error("error on signin fetch: ", err))
   }
@@ -73,8 +72,8 @@ function UserInn() {
     })
       .then(response => response.json())
       .then(data => {
-        window.localStorage.setItem("token", data.token)
-        return <Route path='/' element={<Home />}/>
+        window.localStorage.setItem("token", data.token);
+        <Navigate to={"/"} />
       })
       .catch(err => console.error("error on login fetch: ", err))
   }
