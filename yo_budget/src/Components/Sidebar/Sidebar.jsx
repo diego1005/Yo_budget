@@ -14,11 +14,11 @@ function Sidebar() {
       </div>
       <div className="sidebar-list-container">
         <ul className='sidebar-list'>
-          <SidebarOpt sidebarTo="/operations" sidebarOpt="DASHBOARD" sidebarIcon={<i className="fa-solid fa-chart-line"></i>} />
-          <SidebarOpt sidebarTo="/users" sidebarOpt="OPERATIONS" sidebarIcon={<i className="fa-solid fa-cash-register"></i>} />
-          <SidebarOpt sidebarTo="/users" sidebarOpt="PROFILE" sidebarIcon={<i className="fa-solid fa-user"></i>} />
-          <SidebarOpt sidebarTo="/login" sidebarOpt="LOG IN" sidebarIcon={<i className="fa-solid fa-right-to-bracket"></i>} />
-          <SidebarOpt sidebarTo="/signin" sidebarOpt="SIGN IN" sidebarIcon={<i className="fa-solid fa-right-to-bracket"></i>} />
+          <SidebarOpt sidebarTo="/" sidebarOpt="DASHBOARD" sidebarIcon={<i className="fa-solid fa-chart-line"></i>} />
+          <SidebarOpt sidebarTo="/operations" sidebarOpt="OPERATIONS" sidebarIcon={<i className="fa-solid fa-cash-register"></i>} />
+          <SidebarOpt sidebarTo="/profile" sidebarOpt="PROFILE" sidebarIcon={<i className="fa-solid fa-user"></i>} />
+          <SidebarOpt sidebarTo="/userinn" sidebarOpt="LOG IN" sidebarIcon={<i className="fa-solid fa-right-to-bracket"></i>} />
+          <SidebarOpt sidebarTo="/userinn" sidebarOpt="SIGN IN" sidebarIcon={<i className="fa-solid fa-right-to-bracket"></i>} />
         </ul>
       </div>
     </div>

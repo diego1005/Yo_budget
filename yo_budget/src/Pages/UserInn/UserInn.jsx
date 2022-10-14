@@ -1,19 +1,21 @@
 import React, { useState, useRef } from 'react';
-import { Navigate } from "react-router-dom";
 import "./UserInn.css";
+import { useNavigate } from 'react-router-dom';
 
-function UserInn() {
+function UserInn(props) {
 
+  //States of login and signin data
   const [userLoginData, setUserLoginData] = useState({ username: '', password: '' });
   const [userRegisterData, setUserRegisterData] = useState({ name: '', lastname: '', email: '', password: '', confirmPassword: '' });
-
+  //Captured input of file
   const file = useRef();
-
+  //States of register and login divs and buttons to show
   const [registerBox, setRegisterBox] = useState(false)
   const [registerBtn, setRegisterBtn] = useState(true)
   const [loginBox, setLoginBox] = useState(false)
   const [loginBtn, setLoginBtn] = useState(true)
 
+  //To show or hide Register div and button
   const showHideReg = () => {
     setRegisterBox((prevState) => !prevState);
     setRegisterBtn((prevState) => !prevState);
@@ -22,7 +24,7 @@ function UserInn() {
       setLoginBtn((prevState) => !prevState);
     }
   }
-
+  //To show or hide Login div and button
   const showHideLog = () => {
     setLoginBox((prevState) => !prevState);
     setLoginBtn((prevState) => !prevState);
@@ -31,17 +33,19 @@ function UserInn() {
       setRegisterBtn((prevState) => !prevState);
     }
   }
-
+  //Fn for handle submit form action
   const submitHandler = (e) => {
     //Prevent default behaviour
     e.preventDefault();
-
 
     const process = e.target.getAttribute('name')
     if (process === "register") sendReg(userRegisterData);
     if (process === "login") sendLog(userLoginData);
 
   }
+  //Fn to signin and login -------------------------------
+
+  const navigate = useNavigate();
 
   const sendReg = (data) => {
     const url = "http://localhost:3001/user/signin";
@@ -58,7 +62,8 @@ function UserInn() {
       .then(response => response.json())
       .then(data => {
         window.localStorage.setItem("token", data.token);
-        <Navigate to={"/"} />
+        props.user(data.token);
+        return navigate("/");
       })
       .catch(err => console.error("error on signin fetch: ", err))
   }
@@ -73,10 +78,12 @@ function UserInn() {
       .then(response => response.json())
       .then(data => {
         window.localStorage.setItem("token", data.token);
-        <Navigate to={"/"} />
+        props.user(data.token);
+        return navigate("/");
       })
       .catch(err => console.error("error on login fetch: ", err))
   }
+  //------------------------------------------------------
 
   return (
     <div className='userinn'>
