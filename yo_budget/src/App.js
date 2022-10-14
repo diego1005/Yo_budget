@@ -9,7 +9,9 @@ function App() {
     <div >
       <Routes>
         <Route path="/" exact element={< Home />} />
-        <Route path="/userInn" exact element={<Home content="userinn" />} />
+        <Route path="/userinn" exact element={<Home content="userinn" />} />
+        <Route path="/operations" exact element={<Home content="table" />} />
+        <Route path="/profile" exact element={<Home content="profile" />} />
       </Routes>
     </div>
   );

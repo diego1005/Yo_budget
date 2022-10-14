@@ -61,7 +61,7 @@ function UserInn(props) {
     })
       .then(response => response.json())
       .then(data => {
-        window.localStorage.setItem("token", data.token);
+        localStorage.setItem("token", data.token);
         props.user(data.token);
         return navigate("/");
       })
@@ -77,7 +77,7 @@ function UserInn(props) {
     })
       .then(response => response.json())
       .then(data => {
-        window.localStorage.setItem("token", data.token);
+        localStorage.setItem("token", data.token);
         props.user(data.token);
         return navigate("/");
       })
