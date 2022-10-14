@@ -14,14 +14,13 @@ function Home(props) {
     const [userLogged, setUserLogged] = useState(null);
 
     useEffect(() => {
-        console.log('%cSe monto el componente', 'color: green');
+        console.log('%cComponent Home is mount', 'color: green');
         fetch("http://localhost:3001/user/checkToken")
             .then(response => response.json())
             .then(data => {
                 if (data.action !== "redirect") {
-                    setUserLogged(data.token)
-                } else {
                     localStorage.clear();
+                    setUserLogged(data.token)
                 }
             })
             .catch(err => console.error(err))
@@ -31,10 +30,10 @@ function Home(props) {
         switch (componentName) {
             case "table":
                 return <Table />;
-            case "profile":
+                case "profile":
                 return <Profile />;
             case "userinn":
-                return <UserInn user={setUserLogged}/>;
+                return <UserInn user={setUserLogged} />;
             default:
                 return <Main />;
         }
@@ -42,7 +41,7 @@ function Home(props) {
 
     return (
         (userLogged === null && props.content !== "userinn")
-            ? <Navigate replace to="/userinn"/>
+            ? <Navigate replace to="/userinn" />
             : <div className={(props.content === undefined) ? "home" : "home home-vh"}>
                 <Sidebar />
                 <div className="container">
