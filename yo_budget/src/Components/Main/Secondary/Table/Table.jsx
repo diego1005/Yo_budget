@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./Table.css";
 import TableRow from "./TableRow/TableRow";
 
 function Table() {
+
+  useEffect(() => {
+    console.log('%cComponent Table is mount', 'color: green');
+  })
+
   return (
     <div className='table-container'>
       <div className="table-top">

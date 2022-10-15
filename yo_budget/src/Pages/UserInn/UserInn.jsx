@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import "./UserInn.css";
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function UserInn(props) {
 
@@ -84,6 +85,11 @@ function UserInn(props) {
       .catch(err => console.error("error on login fetch: ", err))
   }
   //------------------------------------------------------
+
+  useEffect(() => {
+      props.msg === "expired" &&
+        alert("Session expired!")
+  }, [props.msg])
 
   return (
     <div className='userinn'>

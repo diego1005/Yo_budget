@@ -110,7 +110,7 @@ const userController = {
                             .then(newUser => {
                                 newUser.password = undefined;
                                 //generate user token
-                                const token = jwt.sign({ newUser }, process.env.SECRET_KEY, { expiresIn: 5 });
+                                const token = jwt.sign({ newUser }, process.env.SECRET_KEY, { expiresIn: 60 });
                                 res.status(200).json({
                                     data: newUser,
                                     token,
@@ -149,18 +149,22 @@ const userController = {
         }
     },
     //CHECK TOKEN
-        checkToken: (req, res) => {
+    checkToken: (req, res) => {
         const userToken = req.headers["authorization"];
-        if (userToken != undefined) {
-            req.token = userToken;
-            next();
-        } else {
-            res.status(200).json({
-                msg: "missing token or invalid",
-                action: "redirect",
-                status: "denied"
-            });
-        }
+        jwt.verify(userToken, process.env.SECRET_KEY, (err, decoded) => {
+            if (err) {
+                res.status(200).json({
+                    msg: "missing token or invalid",
+                    action: "redirect",
+                    status: "denied"
+                });
+            } else {
+                res.status(200).json({
+                    token: userToken,
+                    status: "success"
+                })
+            }
+        })
     },
     //LOGOUT
     logout: (req, res) => {
