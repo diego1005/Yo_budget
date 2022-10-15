@@ -11,6 +11,7 @@ const verifyToken = require("../middlewares/session/verifyToken");
 //Incomes Routes
 //Read
 router.get("/list", operationController.list);
+router.get("/listTheLasts", operationController.listTheLasts);
 //Create
 router.post("/add", operationController.add);
 //Update

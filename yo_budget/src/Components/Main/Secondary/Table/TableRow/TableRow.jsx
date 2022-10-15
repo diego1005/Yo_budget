@@ -11,7 +11,7 @@ function TableRow({ content }) {
         {content.concept}
       </td>
       <td className='row-content'>
-        <span className='dollar_symbol'><b>$ </b></span>
+        <i className="fa-solid fa-dollar-sign"></i>
         <span className={content.operation_type === "income" ? "income-line" : "expense-line"}>{currencyFormat.format(content.amount)}</span>
       </td>
       <td className='row-content'>

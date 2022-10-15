@@ -1,0 +1,57 @@
+.tran-card {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 20%;
+    height: 7rem;
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 3px 5px 5px 0px rgba(100, 100, 100, 0.5);
+}
+
+.tran-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.tran-date-box {
+    position: relative;
+    bottom: 1.5rem;
+    background-color: rgba(10, 10, 10, 0.7);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.tran-date {
+    color: white;
+    text-align: center;
+}
+
+.tran-second {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.tran-concept {
+    font-size: 1.3rem;
+    font-family: Comic;
+}
+
+.tran-amount {
+    font-size: 1.3rem;
+}
+
+.fa-circle-chevron-up {
+    font-size: 1.8rem;
+    color: green
+}
+
+.fa-circle-chevron-down {
+    font-size: 1.8rem;
+    color: crimson
+}

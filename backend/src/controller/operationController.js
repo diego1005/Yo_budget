@@ -16,6 +16,24 @@ const operationController = {
             })
             .catch(err => {
                 res.status(500).json({
+                    msg: "error from find",
+                    error: err,
+                    status: "denied"
+                })
+            })
+    },
+    listTheLasts: (req, res) => {
+        Operation.findAll({ limit: 3 })
+            .then(result => {
+                res.status(200).json({
+                    count: result.lenghth,
+                    data: result,
+                    status: "success"
+                })
+            })
+            .catch(err => {
+                res.status(500).json({
+                    msg: "error from find",
                     error: err,
                     status: "denied"
                 })
