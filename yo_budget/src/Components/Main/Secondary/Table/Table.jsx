@@ -1,22 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import "./Table.css";
 import TableRow from "./TableRow/TableRow";
 
-function Table() {
-
-  useEffect(() => {
-    console.log('%cComponent Table is mount', 'color: green');
-  })
+function Table({ rowData, countData }) {
 
   return (
     <div className='table-container'>
       <div className="table-top">
         <div className="table-top-left">
           <h2>OPERATIONS</h2>
-          <p>
+          <h3>
             <i className="fa-solid fa-check"></i>
-            <span className='movements'>total movements</span>
-          </p>
+            <span className='movements'>{countData} total </span>
+            <span>movements</span>
+          </h3>
         </div>
         <div className="table-top-right">
           <i className="fa-solid fa-ellipsis-vertical"></i>
@@ -26,21 +23,20 @@ function Table() {
         <table className='table'>
           <thead>
             <tr className='table-title'>
-              <th className="table-head">1</th>
-              <th className="table-head">2</th>
-              <th className="table-head">3</th>
-              <th className="table-head">4</th>
-              <th className="table-head">5</th>
+              <th className="table-head">Concept</th>
+              <th className="table-head">Amount</th>
+              <th className="table-head">Date</th>
+              <th className="table-head">Type</th>
+              <th className="table-head">
+                <i className="fa-solid fa-pen-to-square"></i>
+                <i className="fa-solid fa-trash"></i>
+              </th>
             </tr>
           </thead>
           <tbody className='table-body'>
-            <tr>
-              <TableRow />
-              <TableRow />
-              <TableRow />
-              <TableRow />
-              <TableRow />
-            </tr>
+            {
+              rowData.map((el, idx) => <TableRow key={idx + el.id} content={el} />)
+            }
           </tbody>
         </table>
       </div>

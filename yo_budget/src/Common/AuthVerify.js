@@ -30,11 +30,13 @@ function AuthVerify(props) {
                 if (data.action !== "redirect") {
                     //Token doesn't expired yet
                     console.log('%cToken not expired', 'color: yellow')
-                    set(data.token)
+                    set(data.token);
+                    return true
                 } else {
                     //Token expired
                     console.log('%cToken expired', 'color: red')
                     localStorage.clear();
+                    return true;
                 }
             })
             .catch(err => console.error(err))

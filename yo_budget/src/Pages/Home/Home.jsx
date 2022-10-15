@@ -4,12 +4,12 @@ import "./Home.css";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Main from "../../Components/Main/Main";
-import Table from '../../Components/Main/Secondary/Table/Table';
 import Profile from '../Profile/Profile';
 import Footer from "../../Components/Footer/Footer";
 import UserInn from '../UserInn/UserInn';
+import Secondary from '../../Components/Main/Secondary/Secondary';
 
-function Home({user, set, content, count}) {
+function Home({ user, set, content, count }) {
 
     useEffect(() => {
         console.log('%cComponent Home is mount', 'color: green');
@@ -18,7 +18,7 @@ function Home({user, set, content, count}) {
     const switchComponent = (componentName) => {
         switch (componentName) {
             case "table":
-                return <Table />;
+                return <Secondary />
             case "profile":
                 return <Profile />;
             case "userinn":

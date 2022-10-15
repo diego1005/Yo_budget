@@ -1,9 +1,39 @@
 .aside {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 25%;
     height: 88%;
     background-color: white;
+    padding: 1rem;
     border-radius: 10px;
     box-shadow: 3px 5px 5px 0px rgba(100, 100, 100, 0.5);
+}
+
+.aside-title-box {
+    width: 100%;
+    color: #fb8500;
+}
+
+.aside-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 65%;
+    text-align: start;
+}
+
+.incomes-title {
+    color: green;
+}
+
+.expenses-title {
+    color: red;
+    
+}
+
+.balance-title {
+    color: blue;
+
 }
