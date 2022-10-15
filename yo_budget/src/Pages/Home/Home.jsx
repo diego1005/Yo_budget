@@ -9,7 +9,7 @@ import Profile from '../Profile/Profile';
 import Footer from "../../Components/Footer/Footer";
 import UserInn from '../UserInn/UserInn';
 
-function Home(props) {
+function Home({user, set, content, count}) {
 
     useEffect(() => {
         console.log('%cComponent Home is mount', 'color: green');
@@ -22,21 +22,21 @@ function Home(props) {
             case "profile":
                 return <Profile />;
             case "userinn":
-                return <UserInn user={props.set} />;
+                return <UserInn user={set} count={count} />;
             default:
                 return <Main />;
         }
     }
 
     return (
-        (props.user === null && props.content !== "userinn")
+        (user === null && content !== "userinn")
             ? <Navigate replace to="/userinn" />
-            : <div className={(props.content === undefined) ? "home" : "home home-vh"}>
+            : <div className={(content === undefined) ? "home" : "home home-vh"}>
                 <Sidebar />
                 <div className="container">
                     <Header />
                     {
-                        switchComponent(props.content)
+                        switchComponent(content)
                     }
                     <Footer />
                 </div>

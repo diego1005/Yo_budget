@@ -15,11 +15,11 @@ function AuthVerify(props) {
     }, [location, props])
 
     useEffect(() => {
-        if (props.user === null) {
+        if (props.user === null && props.count > 0) {
             alert("Session expired !!");
             < UserInn msg="expired" />
         }
-    }, [props.user])
+    }, [props.user, props.count])
 
     const checkToken = (user, set) => {
         fetch("http://localhost:3001/user/checkToken", {

@@ -64,6 +64,7 @@ function UserInn(props) {
       .then(data => {
         localStorage.setItem("token", data.token);
         props.user(data.token);
+        props.count(1);
         return navigate("/");
       })
       .catch(err => console.error("error on signin fetch: ", err))
@@ -80,6 +81,7 @@ function UserInn(props) {
       .then(data => {
         localStorage.setItem("token", data.token);
         props.user(data.token);
+        props.count(1);
         return navigate("/");
       })
       .catch(err => console.error("error on login fetch: ", err))

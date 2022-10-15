@@ -7,6 +7,7 @@ import AuthVerify from "./Common/AuthVerify";
 function App() {
 
   const [userLogged, setUserLogged] = useState(null);
+  const [count, setCount] = useState(0);
 
   return (
     <div >
@@ -15,14 +16,14 @@ function App() {
         <Route path="/userinn"
           exact
           element={
-            (userLogged !== null) 
-            ? <Navigate replace to="/profile" />
-            : <Home user={userLogged} set={setUserLogged} content="userinn" />
+            (userLogged !== null)
+              ? <Navigate replace to="/profile" />
+              : <Home set={setUserLogged} content="userinn" count={setCount} />
           } />
         <Route path="/operations" exact element={<Home user={userLogged} content="table" />} />
         <Route path="/profile" exact element={<Home user={userLogged} content="profile" />} />
       </Routes>
-      <AuthVerify user={userLogged} set={setUserLogged} />
+      <AuthVerify user={userLogged} set={setUserLogged} count={count} />
     </div>
   );
 }
