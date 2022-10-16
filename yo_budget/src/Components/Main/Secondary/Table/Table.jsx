@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Table.css";
 import TableHead from './TableHead/TableHead';
 import TableBody from "./TableBody/TableBody";
@@ -9,6 +9,35 @@ function Table({ rowData, countData }) {
   const [menu, setMenu] = useState(false);
   const [optList, setOptList] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [addTransaction, setAddTransaction] = useState({});
+  const [editTransaction, setEditTransaction] = useState({});
+  const [submit, setSubmit] = useState(false);
+
+  useEffect(() => {
+
+    const handleSubmit = () => {
+      let url = "http://localhost:3000/operation/";
+      let route = submit;
+      let body = {};
+      if (route === "add") body = addTransaction;
+      if (route === "edit") body = editTransaction;
+
+      if (submit !== false && !body.isEmpty()) {
+        fetch(`${url + route}`, {
+          method: "POST",
+          headers: { "authorization": localStorage.getItem("token") },
+          body
+        })
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(err => console.error(err))
+      }
+    }
+
+    handleSubmit();
+  }, [addTransaction, editTransaction, submit])
+
+
 
   return (
     <div className='table-container'>
@@ -29,6 +58,9 @@ function Table({ rowData, countData }) {
         menu &&
         <div className="table-menu">
           <ul className="menu-list">
+            <li className="opt-list" onClick={() => setShowForm(prevState => prevState = false)}>
+              <i class="fa-solid fa-arrow-left-long"></i>
+            </li>
             <li className="opt-list" onClick={() => setShowForm(prevState => prevState = "add")}>Add</li>
             <li onClick={() => setOptList(prevState => !prevState)} className="opt-list" >Order: </li>
             {
@@ -43,12 +75,12 @@ function Table({ rowData, countData }) {
       }
       <div className="table-content">
         {
-          showForm
+          !showForm
             ? <table className='table'>
               <TableHead />
               <TableBody rowData={rowData} showForm={setShowForm} />
             </table>
-            : <OperationForm content={showForm} />
+            : <OperationForm content={showForm} addData={addTransaction} editData={editTransaction} setAdd={setAddTransaction} setEdit={setEditTransaction} setSubmit={setSubmit} />
         }
       </div>
     </div>
