@@ -1,12 +1,12 @@
 import React from 'react';
 import "./TableRow.css";
 
-function TableRow({ content }) {
+function TableRow({ content, showForm }) {
 
   const currencyFormat = Intl.NumberFormat('es-ES');
 
   return (
-    <tr className='table_row'>
+    <tr className='table_row' onClick={() => showForm(prevState => prevState = "edit")}>
       <td className='row-content'>
         {content.concept}
       </td>
@@ -25,7 +25,6 @@ function TableRow({ content }) {
         }
       </td>
       <td className='row-content'>
-        <p><i className="fa-solid fa-pen-to-square"></i></p>
         <p><i className="fa-solid fa-trash"></i></p>
       </td>
     </tr>

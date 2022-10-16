@@ -23,7 +23,7 @@ function MainSection() {
       </div>
       <div className="main-section-content">
         {
-          lastsTransactions.map(el => <TransactionCard content={el} />)
+          lastsTransactions.map((el, idx) => <TransactionCard key={`${idx}-${el.id}`} content={el} />)
         }
       </div>
     </div>

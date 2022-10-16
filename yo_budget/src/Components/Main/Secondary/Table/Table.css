@@ -1,5 +1,6 @@
 .table-container {
     width: 70%;
+    height: 80%;
     background-color: white;
     border-radius: 10px;
     box-shadow: 3px 5px 5px 0px rgba(100, 100, 100, 0.5);
@@ -12,11 +13,6 @@
     align-items: center;
     margin: auto;
     padding: 1rem;
-    border-bottom: 1px solid lightgray;
-}
-
-.table-head {
-    padding-bottom: 0.5rem;
     border-bottom: 1px solid lightgray;
 }
 
@@ -35,18 +31,49 @@
     width: 10%;
     font-size: 1.3rem;
     text-align: center;
-
 }
+
+.table-top-right:hover {
+    cursor: pointer;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 10px;
+    padding: 0.2rem;
+}
+
 .table-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 16.5rem;
+    height: 60%;
     overflow: auto;
 }
 
 .table {
     width: 96%;
     text-align: center;
-    border-spacing: 0 0.5rem;
+    border-spacing: 0 1.3rem;
+}
+
+.menu-list {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+}
+
+.opt-list {
+    padding: 0.5rem;
+}
+
+.opt-list:hover {
+    cursor: pointer;
+    background-color: rgba(200, 200, 200, 0.7);
+    border-radius: 5px;
+}
+
+.order-opts {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 45%;
 }

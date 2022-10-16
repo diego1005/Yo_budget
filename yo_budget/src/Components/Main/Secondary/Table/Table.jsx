@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Table.css";
-import TableRow from "./TableRow/TableRow";
+import TableHead from './TableHead/TableHead';
+import TableBody from "./TableBody/TableBody";
+import OperationForm from "./OperationForm/OperationForm";
 
 function Table({ rowData, countData }) {
+
+  const [menu, setMenu] = useState(false);
+  const [optList, setOptList] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   return (
     <div className='table-container'>
@@ -16,29 +22,34 @@ function Table({ rowData, countData }) {
           </h3>
         </div>
         <div className="table-top-right">
-          <i className="fa-solid fa-ellipsis-vertical"></i>
+          <i className="fa-solid fa-ellipsis-vertical" onClick={() => setMenu(prevState => !prevState)}></i>
         </div>
       </div>
-      <div className="table-content">
-        <table className='table'>
-          <thead>
-            <tr className='table-title'>
-              <th className="table-head">Concept</th>
-              <th className="table-head">Amount</th>
-              <th className="table-head">Date</th>
-              <th className="table-head">Type</th>
-              <th className="table-head">
-                <i className="fa-solid fa-pen-to-square"></i>
-                <i className="fa-solid fa-trash"></i>
-              </th>
-            </tr>
-          </thead>
-          <tbody className='table-body'>
+      {
+        menu &&
+        <div className="table-menu">
+          <ul className="menu-list">
+            <li className="opt-list" onClick={() => setShowForm(prevState => prevState = "add")}>Add</li>
+            <li onClick={() => setOptList(prevState => !prevState)} className="opt-list" >Order: </li>
             {
-              rowData.map((el, idx) => <TableRow key={idx + el.id} content={el} />)
+              optList &&
+              <div className="order-opts">
+                <li className="opt-list">by Incomes</li>
+                <li className="opt-list">by Expenses</li>
+              </div>
             }
-          </tbody>
-        </table>
+          </ul>
+        </div>
+      }
+      <div className="table-content">
+        {
+          showForm
+            ? <table className='table'>
+              <TableHead />
+              <TableBody rowData={rowData} showForm={setShowForm} />
+            </table>
+            : <OperationForm content={showForm} />
+        }
       </div>
     </div>
   )

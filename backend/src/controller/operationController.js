@@ -23,7 +23,7 @@ const operationController = {
             })
     },
     listTheLasts: (req, res) => {
-        Operation.findAll({ limit: 3 })
+        Operation.findAll({ limit: 10 })
             .then(result => {
                 res.status(200).json({
                     count: result.lenghth,
