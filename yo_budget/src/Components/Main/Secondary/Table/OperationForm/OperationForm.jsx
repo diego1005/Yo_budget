@@ -3,10 +3,18 @@ import "./OperationForm.css"
 
 function OperationForm({ content, addData, editData, setAdd, setEdit, setSubmit, setNewTransaction }) {
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    if (content === "add") setAdd(addData);
+    if (content === "edit") setEdit(editData);
+
+  }
+
   return (
     <div className='operation-form-container'>
       <h3 className='operation-title'><span className={content === "add" ? "par-add" : "par-edit"}>{content === "add" ? "ADD" : "EDIT"}</span> TRANSACTION</h3>
-      <form className='operation-form'>
+      <form className='operation-form' onSubmit={submitHandler}>
         <div className="form-box">
           <div className="operation-form-control">
             <i className="fa-solid fa-arrow-right"></i>
@@ -83,14 +91,14 @@ function OperationForm({ content, addData, editData, setAdd, setEdit, setSubmit,
         <div className="btn-submit-form">
           {
             content === "add"
-              ? <i className="fa-regular fa-square-plus btn-add" onClick={() => {
+              ? <button type='submit'><i className="fa-regular fa-square-plus btn-add"  onClick={() => {
                 setSubmit("add");
                 setNewTransaction(true)
-              }}></i>
-              : <i className="fa-solid fa-pen-to-square btn-edit" onClick={() => {
+              }}></i></button>
+              : <button type='submit'><i className="fa-solid fa-pen-to-square btn-edit" onClick={() => {
                 setSubmit("edit");
                 setNewTransaction(true)
-              }}></i>
+              }}></i></button>
           }
         </div>
       </form>

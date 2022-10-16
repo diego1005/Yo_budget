@@ -2,7 +2,7 @@ import React from 'react';
 import "./MainSection.css";
 import TransactionCard from "./TransactionCard/TransactionCard";
 
-function MainSection({ firstLastFive, lastFive, setCountList }) {
+function MainSection({ firstLastFive, lastFive }) {
 
   return (
     <div className='main-section'>
@@ -13,9 +13,6 @@ function MainSection({ firstLastFive, lastFive, setCountList }) {
         <div className="main-section-content">
           {
             firstLastFive.map((el, idx) => <TransactionCard key={`${idx}-${el.id}`} content={el} />)
-          }
-          {
-            setCountList(1)
           }
         </div>
         <div className="main-section-content">

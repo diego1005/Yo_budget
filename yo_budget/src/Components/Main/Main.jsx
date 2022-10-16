@@ -8,28 +8,27 @@ function Main() {
 
   const [firstLastFive, setFirstLastFive] = useState([]);
   const [lastFive, setLastFive] = useState([]);
-  const [countList, setCountList] = useState(0);
   const [newTransaction, setNewTransaction] = useState(false);
 
   useEffect(() => {
     console.log('%cComponent Main Section is mount', 'color: green');
     let offset = 0;
-    if (countList > 0) offset = 5;
+    if (firstLastFive.length > 0) offset = 5;
     fetch(`http://localhost:3001/operation/listTheLasts/${offset}`, {
       headers: { "authorization": localStorage.getItem("token") }
     })
       .then(response => response.json())
       .then(data => {
-        if (countList === 0) setFirstLastFive(data.data);
-        if (countList > 0) setLastFive(data.data);
+        if (firstLastFive.length === 0) setFirstLastFive(data.data);
+        if (firstLastFive.length > 0) setLastFive(data.data);
       })
       .catch(err => console.error(err))
-  }, [newTransaction, countList])
+  }, [newTransaction, firstLastFive])
 
   return (
     <div className='main'>
       <TopSection />
-      <MainSection firstLastFive={firstLastFive} lastFive={lastFive} setCountList={setCountList} />
+      <MainSection firstLastFive={firstLastFive} lastFive={lastFive} />
       <Secondary setNewTransaction={setNewTransaction} />
     </div>
   )

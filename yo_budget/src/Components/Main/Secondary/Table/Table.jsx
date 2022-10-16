@@ -4,13 +4,13 @@ import TableHead from './TableHead/TableHead';
 import TableBody from "./TableBody/TableBody";
 import OperationForm from "./OperationForm/OperationForm";
 
-function Table({ rowData, countData, setBackArrow, setNewTransaction }) {
+function Table({ rowData, countData, backArrow, setNewTransaction }) {
 
   const [menu, setMenu] = useState(false);
   const [optList, setOptList] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [addTransaction, setAddTransaction] = useState({});
-  const [editTransaction, setEditTransaction] = useState({});
+  const [addTransaction, setAddTransaction] = useState({ concept: '', amount: '', operation_date: '', operation_type: '' });
+  const [editTransaction, setEditTransaction] = useState({ concept: '', amount: '', operation_date: '', operation_type: '' });
   const [submit, setSubmit] = useState(false);
 
   useEffect(() => {
@@ -26,8 +26,8 @@ function Table({ rowData, countData, setBackArrow, setNewTransaction }) {
         fetch((url + route), {
           method: "POST",
           headers: {
-            "authorization": localStorage.getItem("token"),
-            "Content-type": "application/json"
+            "Content-type": "application/json",
+            "authorization": localStorage.getItem("token")
           },
           body
         })
@@ -38,7 +38,7 @@ function Table({ rowData, countData, setBackArrow, setNewTransaction }) {
     }
 
     handleSubmit();
-  }, [showForm, addTransaction, editTransaction, submit])
+  }, [addTransaction, editTransaction, submit])
 
   return (
     <div className='table-container'>
@@ -61,7 +61,7 @@ function Table({ rowData, countData, setBackArrow, setNewTransaction }) {
           <ul className="menu-list">
             <li className="opt-list" onClick={() => {
               setShowForm(prevState => prevState = false);
-              setBackArrow(1);
+              backArrow(1);
             }}>
               <i className="fa-solid fa-arrow-left-long"></i>
             </li>
