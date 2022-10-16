@@ -8,9 +8,10 @@ function Table({ rowData, countData, backArrow, setNewTransaction }) {
 
   const [menu, setMenu] = useState(false);
   const [optList, setOptList] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState({ form: false });
   const [addTransaction, setAddTransaction] = useState({ concept: '', amount: '', operation_date: '', operation_type: '' });
   const [editTransaction, setEditTransaction] = useState({ concept: '', amount: '', operation_date: '', operation_type: '' });
+  const [editData, setEditData] = useState({});
   const [submit, setSubmit] = useState(false);
 
   useEffect(() => {
@@ -19,12 +20,20 @@ function Table({ rowData, countData, backArrow, setNewTransaction }) {
       let url = "http://localhost:3001/operation/";
       let route = submit;
       let body = {};
-      if (route === "add") body = JSON.stringify(addTransaction);
-      if (route === "edit") body = JSON.stringify(editTransaction);
-
+      let method = ''
+      if (route === "add") {
+        body = JSON.stringify(addTransaction);
+        method = "POST";
+        url += route;
+      } 
+      if (route === "edit") {
+        body = JSON.stringify(editTransaction);
+        method = "PUT";
+        url += `${route}/${showForm.id}`;
+      } 
       if (submit !== false && Object.keys(body).length !== 0) {
-        fetch((url + route), {
-          method: "POST",
+        fetch(url, {
+          method,
           headers: {
             "Content-type": "application/json",
             "authorization": localStorage.getItem("token")
@@ -32,13 +41,27 @@ function Table({ rowData, countData, backArrow, setNewTransaction }) {
           body
         })
           .then(response => response.json())
-          .then(data => console.log(data))
+          .then(data => {
+            setAddTransaction({});
+            setEditTransaction({});
+          })
           .catch(err => console.error(err))
       }
     }
 
     handleSubmit();
-  }, [addTransaction, editTransaction, submit])
+  }, [submit])
+
+  useEffect(() => {
+    if (showForm.form === "edit") {
+      fetch(`http://localhost:3001/operation/find/${showForm.id}`, {
+        headers: { "authorization": localStorage.getItem("token") }
+      })
+        .then(response => response.json())
+        .then(data => setEditData(data.data))
+        .catch(err => console.error(err))
+    }
+  }, [showForm])
 
   return (
     <div className='table-container'>
@@ -60,12 +83,12 @@ function Table({ rowData, countData, backArrow, setNewTransaction }) {
         <div className="table-menu">
           <ul className="menu-list">
             <li className="opt-list" onClick={() => {
-              setShowForm(prevState => prevState = false);
+              setShowForm(prevState => prevState = { form: false });
               backArrow(1);
             }}>
               <i className="fa-solid fa-arrow-left-long"></i>
             </li>
-            <li className="opt-list" onClick={() => setShowForm(prevState => prevState = "add")}>Add</li>
+            <li className="opt-list" onClick={() => setShowForm(prevState => prevState = { form: "add" })}>Add</li>
             <li onClick={() => setOptList(prevState => !prevState)} className="opt-list" >Order: </li>
             {
               optList &&
@@ -79,12 +102,12 @@ function Table({ rowData, countData, backArrow, setNewTransaction }) {
       }
       <div className="table-content">
         {
-          !showForm
+          !showForm.form
             ? <table className='table'>
               <TableHead />
               <TableBody rowData={rowData} showForm={setShowForm} />
             </table>
-            : <OperationForm content={showForm} addData={addTransaction} editData={editTransaction} setAdd={setAddTransaction} setEdit={setEditTransaction} setSubmit={setSubmit} setNewTransaction={setNewTransaction} />
+            : <OperationForm content={showForm} addData={addTransaction} editTransaction={editTransaction} setAdd={setAddTransaction} setEdit={setEditTransaction} setSubmit={setSubmit} setNewTransaction={setNewTransaction} editData={editData} />
         }
       </div>
     </div>

@@ -1,0 +1,39 @@
+{
+    "error": {
+        "name": "SequelizeDatabaseError",
+        "parent": {
+            "code": "ER_NO_DEFAULT_FOR_FIELD",
+            "errno": 1364,
+            "sqlState": "HY000",
+            "sqlMessage": "Field 'concept' doesn't have a default value",
+            "sql": "INSERT INTO `Operations` (`id`,`amount`,`created_at`,`updated_at`,`id_category`) VALUES (DEFAULT,?,?,?,?);",
+            "parameters": [
+                null,
+                "2022-10-16 21:03:39",
+                "2022-10-16 21:03:39",
+                null
+            ]
+        },
+        "original": {
+            "code": "ER_NO_DEFAULT_FOR_FIELD",
+            "errno": 1364,
+            "sqlState": "HY000",
+            "sqlMessage": "Field 'concept' doesn't have a default value",
+            "sql": "INSERT INTO `Operations` (`id`,`amount`,`created_at`,`updated_at`,`id_category`) VALUES (DEFAULT,?,?,?,?);",
+            "parameters": [
+                null,
+                "2022-10-16 21:03:39",
+                "2022-10-16 21:03:39",
+                null
+            ]
+        },
+        "sql": "INSERT INTO `Operations` (`id`,`amount`,`created_at`,`updated_at`,`id_category`) VALUES (DEFAULT,?,?,?,?);",
+        "parameters": [
+            null,
+            "2022-10-16 21:03:39",
+            "2022-10-16 21:03:39",
+            null
+        ]
+    },
+    "status": "denied"
+}

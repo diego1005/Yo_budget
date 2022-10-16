@@ -44,6 +44,23 @@ const operationController = {
                 })
             })
     },
+    bring: (req, res) => {
+        const id = parseInt(req.params.id)
+        Operation.findByPk(id)
+            .then(result => {
+                res.status(200).json({
+                    data: result,
+                    status: "success"
+                })
+            })
+            .catch(err => {
+                res.status(500).json({
+                    msg: "error to find operation",
+                    error: err,
+                    status: "denied"
+                })
+            })
+    },
     //CREATE
     add: (req, res) => {
         Operation.create({
@@ -69,6 +86,7 @@ const operationController = {
     },
     //UPDATE
     edit: (req, res) => {
+        const id = parseInt(req.params.id);
         Operation.update(
             {
                 //register data to update
@@ -81,7 +99,7 @@ const operationController = {
             {
                 //find that register to update
                 where: {
-                    id: req.params.id
+                    id: id
                 }
             }
         )
@@ -100,9 +118,10 @@ const operationController = {
     },
     //DELETE
     delete: (req, res) => {
+        const id = parseInt(req.params.id);
         Operation.destroy({
             where: {
-                id: req.params.id
+                id: id
             }
         })
             .then(result => {

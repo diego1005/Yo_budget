@@ -2,7 +2,7 @@ import React from 'react';
 import "./TableBody.css";
 import TableRow from '../TableRow/TableRow';
 
-function TableBody({rowData, showForm}) {
+function TableBody({rowData, editData, showForm}) {
 
   return (
     <tbody className='table-body'>
