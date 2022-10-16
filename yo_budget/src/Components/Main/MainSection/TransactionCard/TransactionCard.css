@@ -21,7 +21,7 @@
     position: relative;
     bottom: 1.5rem;
     background-color: rgba(10, 10, 10, 0.7);
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-radius: 10px;
 }
 
@@ -33,7 +33,7 @@
 .tran-second {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     height: 100%;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .tran-amount {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .fa-circle-chevron-up {

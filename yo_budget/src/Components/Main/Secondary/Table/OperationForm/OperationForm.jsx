@@ -1,7 +1,7 @@
 import React from 'react';
 import "./OperationForm.css"
 
-function OperationForm({ content, addData, editData, setAdd, setEdit, setSubmit }) {
+function OperationForm({ content, addData, editData, setAdd, setEdit, setSubmit, setNewTransaction }) {
 
   return (
     <div className='operation-form-container'>
@@ -9,7 +9,7 @@ function OperationForm({ content, addData, editData, setAdd, setEdit, setSubmit 
       <form className='operation-form'>
         <div className="form-box">
           <div className="operation-form-control">
-            <i class="fa-solid fa-arrow-right"></i>
+            <i className="fa-solid fa-arrow-right"></i>
             <input type="date" name="operation_date"
               onChange={
                 content === "add"
@@ -28,7 +28,7 @@ function OperationForm({ content, addData, editData, setAdd, setEdit, setSubmit 
             />
           </div>
           <div className="operation-form-control">
-            <i class="fa-solid fa-arrow-right"></i>
+            <i className="fa-solid fa-arrow-right"></i>
             <input type="text" name="concept" placeholder='Concept of the operation'
               onChange={
                 content === "add"
@@ -47,26 +47,17 @@ function OperationForm({ content, addData, editData, setAdd, setEdit, setSubmit 
             />
           </div>
           <div className="operation-form-control">
-            <i class="fa-solid fa-arrow-right"></i>
-            <select name="operation_type">
-              <option
-                onChange={
-                  content === "add"
-                    ? e => setAdd({ ...addData, operation_type: e.target.value })
-                    : content === "edit"
-                      ? e => setEdit({ ...editData, operation_type: e.target.value })
-                      : ''
-                }
-                value="incomes">Income</option>
-              <option
-                onChange={
-                  content === "add"
-                    ? e => setAdd({ ...addData, operation_type: e.target.value })
-                    : content === "edit"
-                      ? e => setEdit({ ...editData, operation_type: e.target.value })
-                      : ''
-                }
-                value="Expenses">Expense</option>
+            <i className="fa-solid fa-arrow-right"></i>
+            <select name="operation_type"
+              onChange={
+                content === "add"
+                  ? e => setAdd({ ...addData, operation_type: e.target.value })
+                  : content === "edit"
+                    ? e => setEdit({ ...editData, operation_type: e.target.value })
+                    : ''
+              }>
+              <option value="incomes">Income</option>
+              <option value="Expenses">Expense</option>
             </select>
           </div>
           <div className="operation-form-control">
@@ -92,8 +83,14 @@ function OperationForm({ content, addData, editData, setAdd, setEdit, setSubmit 
         <div className="btn-submit-form">
           {
             content === "add"
-              ? <i class="fa-regular fa-square-plus btn-add" onClick={() => setSubmit("add")}></i>
-              : <i class="fa-solid fa-pen-to-square btn-edit" onClick={() => setSubmit("edit")}></i>
+              ? <i className="fa-regular fa-square-plus btn-add" onClick={() => {
+                setSubmit("add");
+                setNewTransaction(true)
+              }}></i>
+              : <i className="fa-solid fa-pen-to-square btn-edit" onClick={() => {
+                setSubmit("edit");
+                setNewTransaction(true)
+              }}></i>
           }
         </div>
       </form>

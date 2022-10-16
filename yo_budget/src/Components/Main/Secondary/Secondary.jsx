@@ -3,10 +3,11 @@ import "./Secondary.css";
 import Table from "./Table/Table";
 import Aside from "./Aside/Aside";
 
-function Secondary() {
+function Secondary({ setNewTransaction }) {
 
   const [rowData, setRowData] = useState([]);
-  const [countData, setCountData] = useState(0)
+  const [countData, setCountData] = useState(0);
+  const [backArrow, setBackArrow] = useState(0);
 
   useEffect(() => {
     console.log('%cComponent Table is mount', 'color: green');
@@ -19,11 +20,11 @@ function Secondary() {
         setRowData(data.data)
       })
       .catch(err => console.error(err))
-  },[])
+  }, [backArrow])
 
   return (
     <div className='second-section'>
-      <Table rowData={rowData} countData={countData} />
+      <Table rowData={rowData} countData={countData} backArrow={setBackArrow} setNewTransaction={setNewTransaction} />
       <Aside rowData={rowData} />
     </div>
   )

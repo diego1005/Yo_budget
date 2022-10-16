@@ -4,7 +4,7 @@ import TableHead from './TableHead/TableHead';
 import TableBody from "./TableBody/TableBody";
 import OperationForm from "./OperationForm/OperationForm";
 
-function Table({ rowData, countData }) {
+function Table({ rowData, countData, setBackArrow, setNewTransaction }) {
 
   const [menu, setMenu] = useState(false);
   const [optList, setOptList] = useState(false);
@@ -16,16 +16,19 @@ function Table({ rowData, countData }) {
   useEffect(() => {
 
     const handleSubmit = () => {
-      let url = "http://localhost:3000/operation/";
+      let url = "http://localhost:3001/operation/";
       let route = submit;
       let body = {};
-      if (route === "add") body = addTransaction;
-      if (route === "edit") body = editTransaction;
+      if (route === "add") body = JSON.stringify(addTransaction);
+      if (route === "edit") body = JSON.stringify(editTransaction);
 
-      if (submit !== false && !body.isEmpty()) {
-        fetch(`${url + route}`, {
+      if (submit !== false && Object.keys(body).length !== 0) {
+        fetch((url + route), {
           method: "POST",
-          headers: { "authorization": localStorage.getItem("token") },
+          headers: {
+            "authorization": localStorage.getItem("token"),
+            "Content-type": "application/json"
+          },
           body
         })
           .then(response => response.json())
@@ -35,9 +38,7 @@ function Table({ rowData, countData }) {
     }
 
     handleSubmit();
-  }, [addTransaction, editTransaction, submit])
-
-
+  }, [showForm, addTransaction, editTransaction, submit])
 
   return (
     <div className='table-container'>
@@ -58,8 +59,11 @@ function Table({ rowData, countData }) {
         menu &&
         <div className="table-menu">
           <ul className="menu-list">
-            <li className="opt-list" onClick={() => setShowForm(prevState => prevState = false)}>
-              <i class="fa-solid fa-arrow-left-long"></i>
+            <li className="opt-list" onClick={() => {
+              setShowForm(prevState => prevState = false);
+              setBackArrow(1);
+            }}>
+              <i className="fa-solid fa-arrow-left-long"></i>
             </li>
             <li className="opt-list" onClick={() => setShowForm(prevState => prevState = "add")}>Add</li>
             <li onClick={() => setOptList(prevState => !prevState)} className="opt-list" >Order: </li>
@@ -80,7 +84,7 @@ function Table({ rowData, countData }) {
               <TableHead />
               <TableBody rowData={rowData} showForm={setShowForm} />
             </table>
-            : <OperationForm content={showForm} addData={addTransaction} editData={editTransaction} setAdd={setAddTransaction} setEdit={setEditTransaction} setSubmit={setSubmit} />
+            : <OperationForm content={showForm} addData={addTransaction} editData={editTransaction} setAdd={setAddTransaction} setEdit={setEditTransaction} setSubmit={setSubmit} setNewTransaction={setNewTransaction} />
         }
       </div>
     </div>

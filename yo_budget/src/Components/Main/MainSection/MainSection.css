@@ -2,7 +2,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 12rem;
+}
+
+.main-section-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 20rem;
 }
 
 .main-section-content {
