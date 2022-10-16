@@ -7,3 +7,9 @@
 - DB_NAME="yo_budget"
 - DB_PORT="3306"
 - SECRET_KEY="userToken"
+
+### Backend se levanta con el comando
+| npm run dev
+
+### El dashboard con react se corre con el comando
+| npm start
