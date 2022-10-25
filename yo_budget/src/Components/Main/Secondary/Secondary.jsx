@@ -8,7 +8,6 @@ function Secondary() {
 
   const [rowData, setRowData] = useState([]);
   const [countData, setCountData] = useState(0);
-  const [backArrow, setBackArrow] = useState(0);
 
   const getData = async () => {
     const { count, data } = await listAllOperations();
@@ -21,11 +20,11 @@ function Secondary() {
 
     getData();
 
-  }, [backArrow])
+  }, [countData])
 
   return (
     <div className='second-section'>
-      <Table rowData={rowData} countData={countData} backArrow={setBackArrow} />
+      <Table rowData={rowData} countData={countData} setCountData={setCountData} />
       <Aside rowData={rowData} />
     </div>
   )

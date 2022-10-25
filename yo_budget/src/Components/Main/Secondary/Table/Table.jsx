@@ -6,11 +6,11 @@ import OperationForm from "./OperationForm/OperationForm";
 import { addOperation, editOperation } from '../../../../Services/Operation/forOperation';
 import { findOneOperation } from '../../../../Services/Operation/getOperations';
 
-function Table({ rowData, countData, backArrow }) {
+function Table({ rowData, countData, setCountData }) {
 
   const [menu, setMenu] = useState(false);
   const [optList, setOptList] = useState(false);
-  const [showForm, setShowForm] = useState({ form: false });
+  const [showForm, setShowForm] = useState('');
   const [addTransaction, setAddTransaction] = useState({ concept: '', amount: '', operation_date: '', operation_type: '' });
   const [editTransaction, setEditTransaction] = useState({ concept: '', amount: '', operation_date: '', operation_type: '' });
   const [editData, setEditData] = useState({});
@@ -30,6 +30,7 @@ function Table({ rowData, countData, backArrow }) {
         setEditData({});
         break;
     }
+    setCountData(countData + 1)
   }
 
   const findData = async () => {
@@ -43,7 +44,7 @@ function Table({ rowData, countData, backArrow }) {
   }, [submit])
 
   useEffect(() => {
-    if (showForm.form === "edit") { }
+
   }, [showForm])
 
   return (
@@ -66,12 +67,11 @@ function Table({ rowData, countData, backArrow }) {
         <div className="table-menu">
           <ul className="menu-list">
             <li className="opt-list" onClick={() => {
-              setShowForm(prevState => prevState = { form: false });
-              backArrow(1);
+              setShowForm('');
             }}>
               <i className="fa-solid fa-arrow-left-long"></i>
             </li>
-            <li className="opt-list" onClick={() => setShowForm(prevState => prevState = { form: "add" })}>Add</li>
+            <li className="opt-list" onClick={() => setShowForm("add")}>Add</li>
             <li onClick={() => setOptList(prevState => !prevState)} className="opt-list" >Order: </li>
             {
               optList &&
@@ -85,12 +85,12 @@ function Table({ rowData, countData, backArrow }) {
       }
       <div className="table-content">
         {
-          !showForm.form
+          !showForm
             ? <table className='table'>
               <TableHead />
               <TableBody rowData={rowData} showForm={setShowForm} />
             </table>
-            : <OperationForm content={showForm} addData={addTransaction} editTransaction={editTransaction} setAdd={setAddTransaction} setEdit={setEditTransaction} setSubmit={setSubmit} editData={editData} />
+            : <OperationForm showForm={showForm} />
         }
       </div>
     </div>
