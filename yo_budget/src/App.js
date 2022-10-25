@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import './App.css';
 import Home from "./Pages/Home/Home";
-import AuthVerify from "./Common/AuthVerify";
+import AuthVerify from "./Common/User/AuthVerify";
 
 function App() {
 

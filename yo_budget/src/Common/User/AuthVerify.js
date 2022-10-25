@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import UserInn from "../Pages/UserInn/UserInn";
+import UserInn from "../../Pages/UserInn/UserInn";
 
 function AuthVerify(props) {
 

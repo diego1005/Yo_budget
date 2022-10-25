@@ -3,8 +3,10 @@ import "./Table.css";
 import TableHead from './TableHead/TableHead';
 import TableBody from "./TableBody/TableBody";
 import OperationForm from "./OperationForm/OperationForm";
+import { addOperation, editOperation } from '../../../../Services/Operation/forOperation';
+import { findOneOperation } from '../../../../Services/Operation/getOperations';
 
-function Table({ rowData, countData, backArrow, setNewTransaction }) {
+function Table({ rowData, countData, backArrow }) {
 
   const [menu, setMenu] = useState(false);
   const [optList, setOptList] = useState(false);
@@ -14,53 +16,34 @@ function Table({ rowData, countData, backArrow, setNewTransaction }) {
   const [editData, setEditData] = useState({});
   const [submit, setSubmit] = useState(false);
 
+  const sendData = () => {
+    let body = {};
+    switch (submit) {
+      case "add":
+        body = JSON.stringify(addTransaction);
+        addOperation(body)
+        setAddTransaction({});
+        break;
+      case "edit":
+        body = JSON.stringify(editTransaction)
+        editOperation(body, showForm.id)
+        setEditData({});
+        break;
+    }
+  }
+
+  const findData = async () => {
+    const operation = await findOneOperation(showForm.id);
+    console.log(operation);
+    // setEditData(operation)
+  }
+
   useEffect(() => {
 
-    const handleSubmit = () => {
-      let url = "http://localhost:3001/operation/";
-      let route = submit;
-      let body = {};
-      let method = ''
-      if (route === "add") {
-        body = JSON.stringify(addTransaction);
-        method = "POST";
-        url += route;
-      } 
-      if (route === "edit") {
-        body = JSON.stringify(editTransaction);
-        method = "PUT";
-        url += `${route}/${showForm.id}`;
-      } 
-      if (submit !== false && Object.keys(body).length !== 0) {
-        fetch(url, {
-          method,
-          headers: {
-            "Content-type": "application/json",
-            "authorization": localStorage.getItem("token")
-          },
-          body
-        })
-          .then(response => response.json())
-          .then(data => {
-            setAddTransaction({});
-            setEditTransaction({});
-          })
-          .catch(err => console.error(err))
-      }
-    }
-
-    handleSubmit();
   }, [submit])
 
   useEffect(() => {
-    if (showForm.form === "edit") {
-      fetch(`http://localhost:3001/operation/find/${showForm.id}`, {
-        headers: { "authorization": localStorage.getItem("token") }
-      })
-        .then(response => response.json())
-        .then(data => setEditData(data.data))
-        .catch(err => console.error(err))
-    }
+    if (showForm.form === "edit") { }
   }, [showForm])
 
   return (
@@ -107,7 +90,7 @@ function Table({ rowData, countData, backArrow, setNewTransaction }) {
               <TableHead />
               <TableBody rowData={rowData} showForm={setShowForm} />
             </table>
-            : <OperationForm content={showForm} addData={addTransaction} editTransaction={editTransaction} setAdd={setAddTransaction} setEdit={setEditTransaction} setSubmit={setSubmit} setNewTransaction={setNewTransaction} editData={editData} />
+            : <OperationForm content={showForm} addData={addTransaction} editTransaction={editTransaction} setAdd={setAddTransaction} setEdit={setEditTransaction} setSubmit={setSubmit} editData={editData} />
         }
       </div>
     </div>

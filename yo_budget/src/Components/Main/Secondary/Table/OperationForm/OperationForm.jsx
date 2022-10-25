@@ -6,28 +6,28 @@ function OperationForm({ content, addData, editTransaction, setAdd, setEdit, set
 
   const [erase, setErase] = useState()
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
 
-    if (content.form === "add") setAdd(addData);
-    if (content.form === "edit") setEdit(editTransaction);
+  //   if (content.form === "add") setAdd(addData);
+  //   if (content.form === "edit") setEdit(editTransaction);
 
-  }
+  // }
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/operation/delete/${erase}`, {
-      method: "DELETE",
-      headers: { "authorization": localStorage.getItem("token") }
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(err => console.error(err))
-  }, [erase])
+  // useEffect(() => {
+  //   fetch(`http://localhost:3000/operation/delete/${erase}`, {
+  //     method: "DELETE",
+  //     headers: { "authorization": localStorage.getItem("token") }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  //     .catch(err => console.error(err))
+  // }, [erase])
 
   return (
     <div className='operation-form-container'>
       <h3 className='operation-title'><span className={content.form === "add" ? "par-add" : "par-edit"}>{content.form === "add" ? "ADD" : "EDIT"}</span> TRANSACTION</h3>
-      <form className='operation-form' onSubmit={submitHandler}>
+      <form className='operation-form' /*onSubmit={submitHandler}*/>
         <div className="form-box">
           <div className="operation-form-control">
             <i className="fa-solid fa-arrow-right"></i>

@@ -2,7 +2,7 @@ import React from 'react';
 import "./MainSection.css";
 import TransactionCard from "./TransactionCard/TransactionCard";
 
-function MainSection({ firstLastFive, lastFive }) {
+function MainSection() {
 
   return (
     <div className='main-section'>
@@ -12,12 +12,12 @@ function MainSection({ firstLastFive, lastFive }) {
       <div className="main-section-container">
         <div className="main-section-content">
           {
-            firstLastFive.map((el, idx) => <TransactionCard key={`${idx}-${el.id}`} content={el} />)
+            //firstLastFive.map((el, idx) => <TransactionCard key={`${idx}-${el.id}`} content={el} />)
           }
         </div>
         <div className="main-section-content">
           {
-            lastFive.map((el, idx) => <TransactionCard key={`${idx}-${el.id}`} content={el} />)
+            //lastFive.map((el, idx) => <TransactionCard key={`${idx}-${el.id}`} content={el} />)
           }
         </div>
       </div>
