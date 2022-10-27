@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import "./MainSection.css";
-import TransactionCard from "./TransactionCard/TransactionCard";
+import TransactionSection from './TransactionSection/TransactionSection';
+import { listTheLasts } from '../../../Services/Operation/getOperations';
 
 function MainSection() {
+
+  const [lastsOperations, setLastsOperations] = useState([])
+
+  const getTheLasts = async () => {
+    const { data } = await listTheLasts();
+    setLastsOperations(data)
+  }
+
+  useEffect(() => {
+    console.log('%cComponent Main Section is mount', 'color: green');
+    getTheLasts();
+  }, [])
 
   return (
     <div className='main-section'>
@@ -10,16 +23,7 @@ function MainSection() {
         <h2 className='main-section-title'>LASTS TRANSACTIONS</h2>
       </div>
       <div className="main-section-container">
-        <div className="main-section-content">
-          {
-            //firstLastFive.map((el, idx) => <TransactionCard key={`${idx}-${el.id}`} content={el} />)
-          }
-        </div>
-        <div className="main-section-content">
-          {
-            //lastFive.map((el, idx) => <TransactionCard key={`${idx}-${el.id}`} content={el} />)
-          }
-        </div>
+        <TransactionSection lastsOperations={lastsOperations} />
       </div>
     </div>
   )

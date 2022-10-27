@@ -10,3 +10,7 @@ export const findOneOperation = async (id) => {
     return data;
 }
 
+export const listTheLasts = async () => {
+    const data = await getByApi("operation", "listTheLasts", 10);
+    return data;
+}

@@ -2,9 +2,9 @@ import React from 'react';
 import "./TransactionCard.css"
 
 
-function TransactionCard({ content }) {
+function TransactionCard({ operation }) {
 
-    const op_type = content.operation_type;
+    const op_type = operation.operation_type;
 
     const currencyFormat = Intl.NumberFormat('es-ES');
 
@@ -19,16 +19,16 @@ function TransactionCard({ content }) {
             </div>
             <div className="tran-data">
                 <div className="tran-date-box">
-                    <p className='tran-date'>{content.operation_date}</p>
+                    <p className='tran-date'>{operation.operation_date}</p>
                 </div>
                 <div className="tran-second">
                     <div className="tran-concept-box">
-                        <p className="tran-concept">{content.concept}</p>
+                        <p className="tran-concept">{operation.concept}</p>
                     </div>
                     <div className="tran-amount-box">
                         <p className='tran-amount'>
                             <i className="fa-solid fa-dollar-sign"></i>
-                            <span>  {currencyFormat.format(content.amount)} </span>
+                            <span>  {currencyFormat.format(operation.amount)} </span>
                         </p>
                     </div>
                 </div>

@@ -23,11 +23,10 @@ const operationController = {
             })
     },
     listTheLasts: (req, res) => {
-        const offset = parseInt(req.params.offset);
+        const limit = parseInt(req.params.limit);
         Operation.findAll(
             {
-                offset,
-                limit: 5,
+                limit
             })
             .then(result => {
                 res.status(200).json({
