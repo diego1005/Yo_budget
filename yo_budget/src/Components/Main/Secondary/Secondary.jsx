@@ -3,8 +3,11 @@ import "./Secondary.css";
 import Table from "./Table/Table";
 import Aside from "./Aside/Aside";
 import { listAllOperations } from '../../../Services/Operation/getOperations';
+import { useSelector } from "react-redux";
 
 function Secondary() {
+
+  const transactionState = useSelector(state => state.transactions)
 
   const [rowData, setRowData] = useState([]);
   const [countData, setCountData] = useState(0);

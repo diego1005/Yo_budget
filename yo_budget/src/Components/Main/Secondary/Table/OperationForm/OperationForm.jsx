@@ -1,27 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import "./OperationForm.css"
 
 function OperationForm({ showForm }) {
-
-  const [erase, setErase] = useState()
-
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-
-  //   if (content.form === "add") setAdd(addData);
-  //   if (content.form === "edit") setEdit(editTransaction);
-
-  // }
-
-  // useEffect(() => {
-  //   fetch(`http://localhost:3000/operation/delete/${erase}`, {
-  //     method: "DELETE",
-  //     headers: { "authorization": localStorage.getItem("token") }
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => console.log(data))
-  //     .catch(err => console.error(err))
-  // }, [erase])
 
   return (
     <div className='operation-form-container'>
