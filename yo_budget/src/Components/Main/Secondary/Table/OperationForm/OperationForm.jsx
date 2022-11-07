@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./OperationForm.css"
+import { useDispatch } from "react-redux";
+import { addTransaction } from "../../../../../Features/Transactions/TransactionSlice";
 
 function OperationForm({ showForm }) {
+
+  const [transaction, settransaction] = useState({})
+
+  const dispatch = useDispatch();
+
+  const handleChange = e => {
+    settransaction({
+      ...transaction,
+      [e.target.name]: e.target.value
+    })
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(addTransaction(transaction));
+  }
 
   return (
     <div className='operation-form-container'>
@@ -11,26 +29,29 @@ function OperationForm({ showForm }) {
         </span>
         TRANSACTION
       </h3>
-      <form className='operation-form'>
+      <form className='operation-form' onSubmit={handleSubmit}>
         <div className="form-box">
           <div className="operation-form-control">
             <i className="fa-solid fa-arrow-right"></i>
-            <input type="date" name="operation_date" />
+            <input type="date" name="operation_date" onChange={handleChange} />
           </div>
           <div className="operation-form-control">
             <i className="fa-solid fa-arrow-right"></i>
-            <input type="text" name="concept" placeholder='Concept of the operation' />
+            <input type="text" name="concept" placeholder='Concept of the operation' onChange={handleChange} />
           </div>
           <div className="operation-form-control">
             <i className="fa-solid fa-arrow-right"></i>
-            <select name="operation_type">
+            <select name="operation_type" onChange={handleChange}>
+              <option>-- Select --</option>
               <option value="incomes">Income</option>
               <option value="Expenses">Expense</option>
             </select>
           </div>
           <div className="operation-form-control">
             <i className="fa-solid fa-dollar-sign"></i>
-            <input className='form-amount' type="text" name="amount" placeholder='Amount of the operation' />
+            <input className='form-amount' type="text" name="amount" placeholder='Amount of the operation'
+              onChange={handleChange}
+            />
           </div>
         </div>
         <div className="btn-submit-form">
