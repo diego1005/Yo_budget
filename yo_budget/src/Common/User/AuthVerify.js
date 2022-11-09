@@ -21,26 +21,7 @@ function AuthVerify(props) {
         }
     }, [props.user, props.count])
 
-    const checkToken = (user, set) => {
-        fetch("http://localhost:3001/user/checkToken", {
-            headers: { "authorization": user }
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.action !== "redirect") {
-                    //Token doesn't expired yet
-                    console.log('%cToken not expired', 'color: yellow')
-                    set(data.token);
-                    return true
-                } else {
-                    //Token expired
-                    console.log('%cToken expired', 'color: red')
-                    localStorage.clear();
-                    return true;
-                }
-            })
-            .catch(err => console.error(err))
-    }
+
 }
 
 export default AuthVerify;
