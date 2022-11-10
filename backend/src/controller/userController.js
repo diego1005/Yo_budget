@@ -35,7 +35,7 @@ const userController = {
                                 token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 60 * 10 });
                             } else {
                                 //generate user token
-                                token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 60 * 10 });
+                                token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 1 });
                             }
                             res.status(200).json({
                                 token,

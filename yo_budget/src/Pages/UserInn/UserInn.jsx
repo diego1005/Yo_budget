@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
+import { useHandleView } from '../../Hooks/ViewHooks/useHandleView';
 import "./UserInn.css";
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
-function UserInn(props) {
+function UserInn() {
 
   //States of login and signin data
   const [userLoginData, setUserLoginData] = useState({ username: '', password: '' });
@@ -15,6 +14,8 @@ function UserInn(props) {
   const [registerBtn, setRegisterBtn] = useState(true)
   const [loginBox, setLoginBox] = useState(false)
   const [loginBtn, setLoginBtn] = useState(true)
+
+  const { handleView } = useHandleView();
 
   //To show or hide Register div and button
   const showHideReg = () => {
@@ -46,8 +47,6 @@ function UserInn(props) {
   }
   //Fn to signin and login -------------------------------
 
-  const navigate = useNavigate();
-
   const sendReg = (data) => {
     const url = "http://localhost:3001/user/signin";
     let formData = null;
@@ -63,9 +62,7 @@ function UserInn(props) {
       .then(response => response.json())
       .then(data => {
         localStorage.setItem("token", data.token);
-        props.user(data.token);
-        props.count(1);
-        return navigate("/");
+        handleView("dashboard");
       })
       .catch(err => console.error("error on signin fetch: ", err))
   }
@@ -80,18 +77,11 @@ function UserInn(props) {
       .then(response => response.json())
       .then(data => {
         localStorage.setItem("token", data.token);
-        props.user(data.token);
-        props.count(1);
-        return navigate("/");
+        handleView("dashboard");
       })
       .catch(err => console.error("error on login fetch: ", err))
   }
   //------------------------------------------------------
-
-  useEffect(() => {
-      props.msg === "expired" &&
-        alert("Session expired!")
-  }, [props.msg])
 
   return (
     <div className='userinn'>

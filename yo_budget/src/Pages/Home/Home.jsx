@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { AppContext } from '../../Context/context';
+import { AppContext, HomeContext } from '../../Context/context';
 // import { Navigate } from 'react-router-dom';
 import "./Home.css";
 import Header from "../../Components/Header/Header";
@@ -9,24 +9,30 @@ import Profile from '../Profile/Profile';
 import Footer from "../../Components/Footer/Footer";
 import UserInn from '../UserInn/UserInn';
 import Secondary from '../../Components/Main/Secondary/Secondary';
+import { useView } from '../../Hooks/ViewHooks/useView';
+import { homeCssRule } from '../../Common/Views/homeCssRule';
 
 function Home() {
 
-    const [view, setView] = useState('');
-    const { userLogged, isUserLogged } = useContext(UserContext);
+    const { view, changeView } = useView();
+    const { userLogged, userIsLogged } = useContext(AppContext);
 
     useEffect(() => {
         console.log('%cComponent Home is mount', 'color: green');
-        isUserLogged();
-    }, [])
+        userIsLogged();
+        switchComponent();
+    }, [view])
 
     const switchComponent = () => {
+        console.log(view);
         switch (view) {
-            case "table":
-                return <Secondary />
+            case "operations":
+                return <Secondary />;
             case "profile":
                 return <Profile />;
             case "userinn":
+            case "log in":
+            case "sign in":
                 return <UserInn />;
             default:
                 return <Main />;
@@ -34,32 +40,20 @@ function Home() {
     }
 
     return (
-        <AppContext.Provider value={setView}>
-            <div className={(content === undefined) ? "home" : "home home-vh"}>
+        <HomeContext.Provider value={{ changeView }}>
+            <div className={homeCssRule(userLogged, view)}>
                 <Sidebar />
                 <div className="container">
                     <Header />
                     {
-                        (userLogged === null)
+                        userLogged === null
                             ? <UserInn />
-                            : { switchComponent }
+                            : <>{switchComponent()}</>
                     }
                     <Footer />
                 </div>
             </div>
-        </AppContext.Provider>
-        // (user === null && content !== "userinn")
-        //     ? <Navigate replace to="/userinn" />
-        //     : <div className={(content === undefined) ? "home" : "home home-vh"}>
-        //         <Sidebar />
-        //         <div className="container">
-        //             <Header />
-        //             {
-        //                 switchComponent(content)
-        //             }
-        //             <Footer />
-        //         </div>
-        //     </div>
+        </HomeContext.Provider>
     )
 }
 

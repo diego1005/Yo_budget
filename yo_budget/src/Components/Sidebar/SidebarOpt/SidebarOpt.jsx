@@ -1,14 +1,17 @@
 import React from 'react';
+import { useHandleView } from '../../../Hooks/ViewHooks/useHandleView';
 import "./SidebarOpt.css"
-import { Link } from "react-router-dom"
 
-function SidebarOpt(props) {
+function SidebarOpt({ sidebarIcon, sidebarOpt }) {
+
+    const { handleView } = useHandleView();
+
     return (
         <li>
-            <Link to={props.sidebarTo} className='sidebar-link'>
-                <span className='sidebar-icon'>{props.sidebarIcon}</span>
-                <span className='sidebar-opt'> {props.sidebarOpt}</span>
-            </Link>
+            <p className='sidebar-link' onClick={() => handleView(sidebarOpt)}>
+                <span className='sidebar-icon'>{sidebarIcon}</span>
+                <span className='sidebar-opt'> {sidebarOpt}</span>
+            </p>
         </li>
     )
 }
