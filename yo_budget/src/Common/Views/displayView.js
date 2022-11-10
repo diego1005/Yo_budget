@@ -1,4 +1,3 @@
-
 export const displayView = (userLogged, view) => {
     view = view.toLowerCase();
     if (!userLogged) return "userinn";
