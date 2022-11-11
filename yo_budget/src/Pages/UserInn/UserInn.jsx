@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { RegisterBox, LoginBox } from '../../Components/UserInn';
 import { useHandleView } from '../../Hooks/ViewHooks/useHandleView';
 import "./UserInn.css";
 
@@ -7,8 +8,7 @@ function UserInn() {
   //States of login and signin data
   const [userLoginData, setUserLoginData] = useState({ username: '', password: '' });
   const [userRegisterData, setUserRegisterData] = useState({ name: '', lastname: '', email: '', password: '', confirmPassword: '' });
-  //Captured input of file
-  const file = useRef();
+
   //States of register and login divs and buttons to show
   const [registerBox, setRegisterBox] = useState(false)
   const [registerBtn, setRegisterBtn] = useState(true)
@@ -93,43 +93,7 @@ function UserInn() {
       }
       {
         registerBox &&
-        <div className="user-signin">
-          <i className="fa-solid fa-user-plus userinn-icon register"></i>
-          <div className="userinn-title-box">
-            <hr />
-            <h3 className='inn-title'>Register</h3>
-            <hr />
-          </div>
-          <form className='signin-form' name='register' onSubmit={submitHandler}>
-            <div className="form-ctr">
-              <i className="fa-solid fa-user"></i>
-              <input type="text" name='name' placeholder='Name' onChange={e => setUserRegisterData({ ...userRegisterData, name: e.target.value })} value={userRegisterData.name} />
-            </div>
-            <div className="form-ctr">
-              <i className="fa-solid fa-user"></i>
-              <input type="text" name='lastname' placeholder='Lastname' onChange={e => setUserRegisterData({ ...userRegisterData, lastname: e.target.value })} value={userRegisterData.lastname} />
-            </div>
-            <div className="form-ctr">
-              <i className="fa-solid fa-envelope"></i>
-              <input type="email" name='email' placeholder='Email' onChange={e => setUserRegisterData({ ...userRegisterData, email: e.target.value })} value={userRegisterData.email} />
-            </div>
-            <div className="form-ctr">
-              <i className="fa-solid fa-lock"></i>
-              <input type="password" name='password' placeholder='Password' onChange={e => setUserRegisterData({ ...userRegisterData, password: e.target.value })} value={userRegisterData.password} />
-            </div>
-            <div className="form-ctr">
-              <i className="fa-solid fa-lock"></i>
-              <input type="password" name='confirmPassword' placeholder='Confirm Password' onChange={e => setUserRegisterData({ ...userRegisterData, confirmPassword: e.target.value })} value={userRegisterData.confirmPassword} />
-            </div>
-            <div className="form-ctr">
-              <i className="fa-solid fa-image"></i>
-              <input type="file" name='file' ref={file} />
-            </div>
-            <div className="form-ctr">
-              <input className='btn-register' type="submit" value="Register" />
-            </div>
-          </form>
-        </div>
+        <RegisterBox />
       }
       {
         loginBtn &&
@@ -139,27 +103,7 @@ function UserInn() {
       }
       {
         loginBox &&
-        <div className="user-login" >
-          <i className="fa-solid fa-user-check userinn-icon login"></i>
-          <div className="userinn-title-box">
-            <hr />
-            <h3 className='inn-title'>Login</h3>
-            <hr />
-          </div>
-          <form className='login-form' name='login' onSubmit={submitHandler}>
-            <div className="form-ctr">
-              <i className="fa-solid fa-envelope"></i>
-              <input type="email" name='username' placeholder='Email' onChange={e => setUserLoginData({ ...userLoginData, username: e.target.value })} value={userLoginData.username} />
-            </div>
-            <div className="form-ctr">
-              <i className="fa-solid fa-lock"></i>
-              <input type="password" name='password' placeholder='Password' onChange={e => setUserLoginData({ ...userLoginData, password: e.target.value })} value={userLoginData.password} />
-            </div>
-            <div className="form-ctr">
-              <input className='btn-login' type="submit" value="Login" />
-            </div>
-          </form>
-        </div>
+        <LoginBox />
       }
     </div>
   )
