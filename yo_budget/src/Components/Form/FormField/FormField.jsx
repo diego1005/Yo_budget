@@ -1,14 +1,9 @@
-import React, { useRef, useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../../../Context/context";
 
-function FormField({ icon = null, type, name, pHolder = null, ref = null }) {
+function FormField({ icon = null, type, name, pHolder = null, ref = null, file }) {
 
     const { inputData, inputHandler } = useContext(UserContext);
-
-    //Captured input of file
-    const file = useRef();
-
-    console.log(file);
 
     return (
         <div className="form-ctr">

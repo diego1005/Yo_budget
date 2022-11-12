@@ -4,7 +4,7 @@ export const useSendForm = () => {
 
     const { handleView } = useHandleView();
 
-    const sendReg = async (data) => {
+    const sendReg = async (data, file) => {
         const url = "http://localhost:3001/user/signin";
         let formData = new FormData();
         formData.append("url_img", file.current.files[0])
@@ -39,7 +39,6 @@ export const useSendForm = () => {
             console.error("error on login fetch: ", error)
         }
     }
-
 
     return {
         sendLog,
