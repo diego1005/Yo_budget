@@ -1,9 +1,14 @@
-import { useRef } from "react";
+import React, { useRef, useContext } from "react";
+import { UserContext } from "../../../Context/context";
 
-export default FormField = ({ icon = null, type, name, pHolder = null, ref = null }) => {
+function FormField({ icon = null, type, name, pHolder = null, ref = null }) {
+
+    const { inputData, inputHandler } = useContext(UserContext);
 
     //Captured input of file
     const file = useRef();
+
+    console.log(file);
 
     return (
         <div className="form-ctr">
@@ -19,3 +24,5 @@ export default FormField = ({ icon = null, type, name, pHolder = null, ref = nul
         </div>
     )
 }
+
+export default FormField;

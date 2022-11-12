@@ -28,22 +28,6 @@
     box-shadow: 3px 5px 5px 0px rgba(100, 100, 100, 0.5);
 }
 
-.login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 60%;
-    height: 60%;
-}
-
-.form-ctr {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 85%;
-}
-
 .btn-login {
     color: white;
     background-color: blue;

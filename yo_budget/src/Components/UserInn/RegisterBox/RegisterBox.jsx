@@ -1,5 +1,6 @@
 import { registerFormFields, formImg } from "../../../Common/Forms/formData";
 import { Form } from "../../Form/Form";
+import "./RegisterBox.css";
 
 export const RegisterBox = () => {
 
@@ -17,7 +18,6 @@ export const RegisterBox = () => {
                 <hr />
             </div>
             <Form
-                formClass="signin-form"
                 formName="register"
                 formFields={registerFormFields}
                 formImg={formImg}

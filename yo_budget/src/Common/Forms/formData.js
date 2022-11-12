@@ -31,23 +31,28 @@ export const registerFormFields = [
         name: "confirmPassword",
         pHolder: "ConfirmPassword",
     },
-    {
-        icon: <i className="fa-solid fa-lock"></i>,
-        type: "password",
-        name: "confirmPassword",
-        pHolder: "ConfirmPassword",
-    },
 ]
 
 export const formImg = {
     icon: <i className="fa-solid fa-image"></i>,
     type: "file",
     name: "file",
-    ref: file,
+    ref: undefined,
 }
+
+//LOGIN DATA FORM
 
 export const loginFormFields = [
     {
-        
-    }
+        icon: <i className="fa-solid fa-envelope"></i>,
+        type: "text",
+        name: "username",
+        pHolder: "Email",
+    },
+    {
+        icon: <i className="fa-solid fa-lock"></i>,
+        type: "password",
+        name: "password",
+        pHolder: "Password",
+    },
 ]

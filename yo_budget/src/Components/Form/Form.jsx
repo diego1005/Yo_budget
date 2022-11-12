@@ -1,22 +1,24 @@
-import { inputHandlerHook } from "../../Hooks/FormHooks/inputHandlerHook"
+import { useContext } from "react";
+import { UserContext } from "../../Context/context";
 import { FormButton } from "./FormButton/FormButton";
 import FormField from "./FormField/FormField";
 
-export const Form = ({ formClass, formName, formFields, formImg, formButton }) => {
+export const Form = ({ formName, formFields, formImg = null, formButton }) => {
 
-    const { inputData, inputHandler } = inputHandlerHook();
+    const { inputData, submitHandler } = useContext(UserContext);
 
     return (
-        <form className={formClass} name={formName} onSubmit={submitHandler}>
+        <form className="form" name={formName} onSubmit={() => submitHandler(inputData)}>
             {
-                formFields.map(formField => {
+                formFields.map((formField, idx) =>
                     <FormField
+                        key={idx}
                         icon={formField.icon}
                         type={formField.type}
                         name={formField.name}
                         pHolder={formField.pHolder}
                     />
-                })
+                )
             }
             {
                 formImg &&
