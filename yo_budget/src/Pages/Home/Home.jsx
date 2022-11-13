@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { AppContext, HomeContext } from '../../Context/context';
-// import { Navigate } from 'react-router-dom';
 import "./Home.css";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/Sidebar/Sidebar";
@@ -9,22 +8,19 @@ import Profile from '../Profile/Profile';
 import Footer from "../../Components/Footer/Footer";
 import UserInn from '../UserInn/UserInn';
 import Secondary from '../../Components/Main/Secondary/Secondary';
-import { useView } from '../../Hooks/ViewHooks/useView';
 import { homeCssRule } from '../../Common/Views/homeCssRule';
 
 function Home() {
 
-    const { view, changeView } = useView();
-    const { userLogged, userIsLogged } = useContext(AppContext);
+    const [view, setView] = useState();
+    const { userLogged } = useContext(AppContext);
 
     useEffect(() => {
         console.log('%cComponent Home is mount', 'color: green');
-        userIsLogged();
         switchComponent();
     }, [view])
 
     const switchComponent = () => {
-        console.log(view);
         switch (view) {
             case "operations":
                 return <Secondary />;
@@ -38,9 +34,10 @@ function Home() {
                 return <Main />;
         }
     }
+    console.log(view);
 
     return (
-        <HomeContext.Provider value={{ changeView }}>
+        <HomeContext.Provider value={{ setView }}>
             <div className={homeCssRule(userLogged, view)}>
                 <Sidebar />
                 <div className="container">

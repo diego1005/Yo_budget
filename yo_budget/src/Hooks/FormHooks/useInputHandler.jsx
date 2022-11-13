@@ -4,7 +4,8 @@ export const useInputHandler = () => {
 
     const [inputData, setInputData] = useState({})
 
-    const inputHandler = ({ name, value }) => {
+    const inputHandler = ({ target }) => {
+        const { name, value } = target;
         setInputData({
             ...inputData,
             [name]: value

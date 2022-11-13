@@ -4,6 +4,7 @@ export const useSendForm = () => {
 
     const { handleView } = useHandleView();
 
+
     const sendReg = async (data, file) => {
         const url = "http://localhost:3001/user/signin";
         let formData = new FormData();
@@ -33,7 +34,7 @@ export const useSendForm = () => {
                 body: JSON.stringify(data)
             });
             const { token } = await response.json();
-            localStorage.setItem("token", data.token);
+            localStorage.setItem("token", token);
             handleView("dashboard");
         } catch (error) {
             console.error("error on login fetch: ", error)

@@ -4,11 +4,15 @@ import { AppContext, HomeContext } from "../../Context/context"
 
 export const useHandleView = () => {
 
-    const { userLogged } = useContext(AppContext);
-    const { changeView } = useContext(HomeContext);
+    const { userLogged, userIsLogged } = useContext(AppContext);
+    const { setView } = useContext(HomeContext);
 
     const handleView = (view) => {
-        changeView(displayView(userLogged, view));
+        if (!userLogged) {
+            userIsLogged()
+        } else {
+            setView(displayView(userLogged, view));
+        }
     }
 
     return {

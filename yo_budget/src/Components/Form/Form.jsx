@@ -10,7 +10,7 @@ export const Form = ({ formName, formFields, formImg = null, formButton }) => {
     const file = useRef();
 
     return (
-        <form className="form" name={formName} onSubmit={() => submitHandler(inputData, file)}>
+        <form className="form" name={formName} onSubmit={(e) => submitHandler(e, inputData, file)}>
             {
                 formFields.map((formField, idx) =>
                     <FormField
