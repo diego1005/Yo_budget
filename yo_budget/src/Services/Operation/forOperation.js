@@ -1,4 +1,4 @@
-import { sendByApi } from "../../Common/Operation/api";
+import { sendByApi } from "../../Common/Api/api";
 
 export const addOperation = async (body) => {
     const data = await sendByApi("operation", "add", undefined, "POST", body);

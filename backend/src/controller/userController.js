@@ -168,8 +168,19 @@ const userController = {
     },
     //LOGOUT
     logout: (req, res) => {
-        //Aca recibo el token y lo borro del cliente
-        req.token.destroy();
+        try {
+            req.headers.authorization = null;
+            res.status(200).json({
+                msg: "user logout",
+                status: "success"
+            })
+        } catch (error) {
+            res.status(500).json({
+                msg: "error to logout user",
+                error: error,
+                status: "denied"
+            })
+        }
     },
     //READ
     list: (req, res) => {
@@ -183,6 +194,23 @@ const userController = {
             })
             .catch(err => {
                 res.status(500).json({
+                    error: err,
+                    status: "denied"
+                })
+            })
+    },
+    listOne: (req, res) => {
+        const { id } = req.params;
+        User.findOne({ where: { id } })
+            .then(result => {
+                res.status(200).json({
+                    data: result,
+                    status: "success"
+                })
+            })
+            .catch(err => {
+                res.status(500).json({
+                    msg: "user not found",
                     error: err,
                     status: "denied"
                 })

@@ -2,7 +2,7 @@ import { useSendForm } from "./useSendForm";
 
 export const useSubmitHandler = () => {
 
-    const { sendLog, sendReg } = useSendForm();
+    const { loginForm, registerForm } = useSendForm();
 
     //Fn for handle submit form action
     const submitHandler = (e, dataForm, file = null) => {
@@ -11,8 +11,8 @@ export const useSubmitHandler = () => {
 
         const { name } = e.target;
 
-        if (name === "register") sendReg(dataForm, file);
-        if (name === "login") sendLog(dataForm);
+        if (name === "register") registerForm(dataForm, file);
+        if (name === "login") loginForm(dataForm);
     }
 
     return {

@@ -18,6 +18,7 @@ const verifyPassword = require("../middlewares/validations/verifyPassword");
 router.get("/checkToken", userController.checkToken);
 //Read
 router.get("/list", userController.list);
+router.get("/list/:id", userController.listOne);
 router.get("/logout", userController.logout);
 router.post("/login", validates.validateLogin, userController.login);
 //Create

@@ -13,10 +13,11 @@ import { homeCssRule } from '../../Common/Views/homeCssRule';
 function Home() {
 
     const [view, setView] = useState();
-    const { userLogged } = useContext(AppContext);
+    const { userLogged, userIsLogged } = useContext(AppContext);
 
     useEffect(() => {
         console.log('%cComponent Home is mount', 'color: green');
+        userIsLogged();
         switchComponent();
     }, [view])
 
@@ -34,7 +35,6 @@ function Home() {
                 return <Main />;
         }
     }
-    console.log(view);
 
     return (
         <HomeContext.Provider value={{ setView }}>

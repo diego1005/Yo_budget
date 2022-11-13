@@ -1,48 +1,33 @@
 import { useHandleView } from '../ViewHooks/useHandleView';
+import { sendReg, sendLog } from '../../Services/User/forUsers';
 
 export const useSendForm = () => {
 
     const { handleView } = useHandleView();
 
-
-    const sendReg = async (data, file) => {
-        const url = "http://localhost:3001/user/signin";
+    const registerForm = async (data, file) => {
         let formData = new FormData();
-        formData.append("url_img", file.current.files[0])
+        formData.append("url_img", file.current.files[0]);
         for (let key in data) {
             formData.append(key, data[key])
         }
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                body: formData
-            });
-            const { token } = await response.json();
-            localStorage.setItem("token", token);
+        const response = await sendReg(formData);
+        if (response.token) {
+            localStorage.setItem("token", response.token);
             handleView("dashboard");
-        } catch (error) {
-            console.error("error on signin fetch: ", error)
         }
     }
 
-    const sendLog = async (data) => {
-        const url = "http://localhost:3001/user/login";
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            const { token } = await response.json();
-            localStorage.setItem("token", token);
+    const loginForm = async (data) => {
+        const response = await sendLog(data);
+        if (response.token) {
+            localStorage.setItem("token", response.token);
             handleView("dashboard");
-        } catch (error) {
-            console.error("error on login fetch: ", error)
         }
     }
 
     return {
-        sendLog,
-        sendReg,
+        loginForm,
+        registerForm,
     }
 }

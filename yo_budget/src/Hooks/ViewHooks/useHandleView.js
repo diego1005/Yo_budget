@@ -11,6 +11,7 @@ export const useHandleView = () => {
         if (!userLogged) {
             userIsLogged()
         } else {
+            view = (view === "LOG IN" || view === "SIGN IN") ? "userinn" : view;
             setView(displayView(userLogged, view));
         }
     }

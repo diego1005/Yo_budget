@@ -1,4 +1,4 @@
-import { getByApi } from "../../Common/Operation/api"
+import { getByApi } from "../../Common/Api/api";
 
 export const listAllOperations = async () => {
     const data = await getByApi("operation", "list")
