@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const category = sequelize.define(
-        "Category", //alias
+        "category", //alias
         {  //table structure
             name: DataTypes.STRING(100),
         },
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     category.associate = (models) => {
         category.hasMany
             (
-                models.Operation,
+                models.operation,
                 {
                     as: "operations",
                     foreignKey: "id_category"

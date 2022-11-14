@@ -1,12 +1,12 @@
 const db = require("../database/models");
-const { Operation } = require("../database/models");
+const { operation } = require("../database/models");
 const Op = db.Sequelize.Op;
 
 
 const operationController = {
     //READ
     list: (req, res) => {
-        Operation.findAll()
+        operation.findAll()
             .then(result => {
                 res.status(200).json({
                     count: result.length,
@@ -24,7 +24,7 @@ const operationController = {
     },
     listTheLasts: (req, res) => {
         const limit = parseInt(req.params.limit);
-        Operation.findAll(
+        operation.findAll(
             {
                 limit
             })
@@ -45,7 +45,7 @@ const operationController = {
     },
     bring: (req, res) => {
         const id = parseInt(req.params.id)
-        Operation.findByPk(id)
+        operation.findByPk(id)
             .then(result => {
                 res.status(200).json({
                     data: result,
@@ -62,7 +62,7 @@ const operationController = {
     },
     //CREATE
     add: (req, res) => {
-        Operation.create({
+        operation.create({
             //create register on db
             concept: req.body.concept,
             amount: parseFloat(req.body.amount),
@@ -86,7 +86,7 @@ const operationController = {
     //UPDATE
     edit: (req, res) => {
         const id = parseInt(req.params.id);
-        Operation.update(
+        operation.update(
             {
                 //register data to update
                 concept: req.body.concept,
@@ -118,7 +118,7 @@ const operationController = {
     //DELETE
     delete: (req, res) => {
         const id = parseInt(req.params.id);
-        Operation.destroy({
+        operation.destroy({
             where: {
                 id: id
             }

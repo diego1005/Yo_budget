@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const operation = sequelize.define(
-        "Operation", //alias
+        "operation", //alias
         {  //table structure
             concept: DataTypes.STRING(200),
             amount: DataTypes.DECIMAL(11, 2),
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     operation.associate = (models) => {
         operation.belongsTo
             (
-                models.User,
+                models.user,
                 {
                     as: "user",
                     foreignKey: "id_user"
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             );
         operation.belongsTo
             (
-                models.Category,
+                models.category,
                 {
                     as: "category",
                     foreignKey: "id_category"

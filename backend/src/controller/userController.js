@@ -1,5 +1,5 @@
 const db = require("../database/models");
-const { User } = require("../database/models");
+const { user } = require("../database/models");
 const Op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -15,7 +15,7 @@ const userController = {
         //validations pass
         if (errors.isEmpty()) {
             //user search
-            User.findOne({
+            user.findOne({
                 where: {
                     email: req.body.username
                 }
@@ -82,7 +82,7 @@ const userController = {
         //validations pass
         if (errors.isEmpty()) {
             //user search
-            User.findOne({
+            user.findOne({
                 where: {
                     email: req.body.email
                 }
@@ -99,7 +99,7 @@ const userController = {
                         })
                     } else {
                         //new user
-                        User.create({
+                        user.create({
                             //CREATE register on db
                             name: req.body.name,
                             lastname: req.body.lastname,
@@ -108,7 +108,7 @@ const userController = {
                             url_img: req.file.filename
                         })
                             .then(newUser => {
-                                newUser.password = undefined;
+                                newuser.password = undefined;
                                 //generate user token
                                 const token = jwt.sign({ newUser }, process.env.SECRET_KEY, { expiresIn: 60 * 10 });
                                 res.status(200).json({
@@ -184,7 +184,7 @@ const userController = {
     },
     //READ
     list: (req, res) => {
-        User.findAll()
+        user.findAll()
             .then(result => {
                 res.status(200).json({
                     count: result.length,
@@ -201,7 +201,7 @@ const userController = {
     },
     listOne: (req, res) => {
         const { id } = req.params;
-        User.findOne({ where: { id } })
+        user.findOne({ where: { id } })
             .then(result => {
                 res.status(200).json({
                     data: result,
@@ -222,7 +222,7 @@ const userController = {
         const errors = validationResult(req);
         //validations pass
         if (errors.isEmpty()) {
-            User.update(
+            user.update(
                 {
                     //register data to update
                     name: req.body.name,
@@ -264,7 +264,7 @@ const userController = {
         const errors = validationResult(req);
         //validations pass
         if (errors.isEmpty()) {
-            User.update(
+            user.update(
                 {
                     //user img update
                     url_img: req.file.filename
@@ -308,7 +308,7 @@ const userController = {
         //validations pass
         if (errors.isEmpty()) {
             //find old password
-            User.findOne({
+            user.findOne({
                 attributes: ["password"],
                 where: {
                     id: req.params.id
@@ -320,7 +320,7 @@ const userController = {
                         //compare old password
                         const authPass = bcrypt.compareSync(req.body.oldPassword, user.password);
                         if (authPass) {
-                            User.update(
+                            user.update(
                                 {
                                     //user img update
                                     password: bcrypt.hashSync(req.body.password, 10)
@@ -372,7 +372,7 @@ const userController = {
     //DELETE
     delete: (req, res) => {
         //delete user
-        User.destroy({
+        user.destroy({
             where: {
                 id: req.params.id
             }
@@ -395,7 +395,7 @@ const userController = {
     deleteImg: (userId, imgUrl) => {
         if (userId != false) {
             //find user img filename to delete
-            User.findOne({
+            user.findOne({
                 attributes: ["url_img"],
                 where: {
                     id: userId
