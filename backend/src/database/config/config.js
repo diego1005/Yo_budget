@@ -7,7 +7,7 @@ module.exports = {
     "database": process.env.DB_NAME,
     "port": process.env.DB_PORT,
     "host": "127.0.0.1",
-    "dialect": "mariadb"
+    "dialect": "mysql"
   },
   "test": {
     "username": process.env.DB_USERNAME,
@@ -15,7 +15,7 @@ module.exports = {
     "database": process.env.DB_NAME,
     "port": process.env.DB_PORT,
     "host": "127.0.0.1",
-    "dialect": "mariadb"
+    "dialect": "mysql"
   },
   "production": {
     "username": process.env.DB_USERNAME,
@@ -23,6 +23,6 @@ module.exports = {
     "database": process.env.DB_NAME,
     "port": process.env.DB_PORT,
     "host": "127.0.0.1",
-    "dialect": "mariadb"
+    "dialect": "mysql"
   }
 }

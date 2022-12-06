@@ -19,7 +19,7 @@ function Secondary() {
   }
 
   useEffect(() => {
-    console.log('%cComponent Table is mount', 'color: green');
+    console.log('%cComponent Secondary is mount', 'color: green');
 
     getData();
 

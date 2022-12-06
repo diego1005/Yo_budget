@@ -19,21 +19,19 @@ function Home() {
         console.log('%cComponent Home is mount', 'color: green');
         userIsLogged();
         switchComponent();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [view])
 
+    let components = {
+        "operations": <Secondary />,
+        "profile": <Profile />,
+        "userinn": <UserInn />,
+        "log in": <UserInn />,
+        "sign in": <UserInn />,
+    }
+
     const switchComponent = () => {
-        switch (view) {
-            case "operations":
-                return <Secondary />;
-            case "profile":
-                return <Profile />;
-            case "userinn":
-            case "log in":
-            case "sign in":
-                return <UserInn />;
-            default:
-                return <Main />;
-        }
+        return components[view] ? components[view] : <Main />;
     }
 
     return (
